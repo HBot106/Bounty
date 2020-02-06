@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private float curSpeed = 0f, speedSmoothVel = 0f, speedSmoothTime = 0.1f, rotationSpd = 0.1f;
     private Transform cameraTrans;
-    private bool isCrouching = false;
+
+    [HideInInspector]
+    public bool isCrouching = false;
 
     void Start()
     {

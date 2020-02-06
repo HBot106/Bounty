@@ -42,6 +42,7 @@ public class CameraFollow : MonoBehaviour
             Quaternion camTurnAngleX = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotateSpd * 0.5f, Vector3.up);
             Quaternion camTurnAngleY = Quaternion.AngleAxis(Input.GetAxis("Mouse Y") * rotateSpd, Vector3.left);
             curOffset = camTurnAngleX * camTurnAngleY * curOffset;
+            curOffset.y = Mathf.Clamp(curOffset.y, 0, float.MaxValue); // So you can't look under the ground
         }
 
         Vector3 newPos = target.position + curOffset;

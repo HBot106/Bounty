@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveDir != Vector3.zero)
         {
             moveDir.y = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), rotationSpd);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(forward), rotationSpd);
         }
 
         Vector2 inputMvnt = new Vector2(horizontal, vertical);

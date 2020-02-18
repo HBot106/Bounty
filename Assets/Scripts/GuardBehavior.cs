@@ -3,12 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
+
 public class GuardBehavior : MonoBehaviour
 {
+
+    // STATE MACROS
+    private static int STATE_GUARDING = 0;
+    private static int STATE_PATROLLING = 1;
+    private static int STATE_CHASING = 2;
+    private static int STATE_FIGHTING = 3;
+    private static int STATE_DYING = 4;
+
+    private int guardState;
+    public int guardHealth;
+    public int patrolPointIndex;
+    private bool isInvestigating;
+    public GameObject[] patrolPoints;
+
+
     public GameObject guardEye;
     public GameObject swordHand;
 
-    public GameObject[] patrolPath;
+    
     public NavMeshAgent guardAgent;
 
     public GameObject player;
@@ -45,7 +63,6 @@ public class GuardBehavior : MonoBehaviour
         rgdbdy = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if(canSeePlayer)

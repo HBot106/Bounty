@@ -16,28 +16,21 @@ public class GuardBehavior : MonoBehaviour
     private static int STATE_FIGHTING = 3;
     private static int STATE_DYING = 4;
 
+    // guards state information
     private int guardState;
-    public int guardHealth;
-    public int patrolPointIndex;
-    private bool isInvestigating;
-    public GameObject[] patrolPoints;
-
-
+    private int guardHealth;
+    private bool guardIsInvestigating;
+    private bool guardCanSeePlayer;
+    private float guardStoppingDistance = 2.0f;
     public GameObject guardEye;
-    public GameObject swordHand;
-
+    public GameObject guardSwordHand;
+    public NavMeshAgent guardNavAgent;
+    public GameObject[] guardPatrolPoints;
+    private int patrolPointIndex;
+    public int patrolPointCount;
+    private Vector3 pointOfInterest;
+    private GameObject player;
     
-    public NavMeshAgent guardAgent;
-
-    public GameObject player;
-    // Start is called before the first frame update
-
-    public bool isPatroling;
-    private int patrolPathIndex;
-    private float stopTime;
-    private float elapsedTime;
-    private bool canSeePlayer;
-    private float stoppingDistance = 2f;
 
     // 0 = not swinging, 1 = swinging right, 2 = swinging left, 
     // 3 = waiting to swing right, 4 = waiting to swing left
@@ -54,41 +47,41 @@ public class GuardBehavior : MonoBehaviour
 
     void Start()
     {
-        canSeePlayer = false;
+        guardCanSeePlayer = false;
         isPatroling = true;
         patrolPathIndex = 0;
         swingDelayCounter = 0;
         stopTime = Time.time;
-        guardAgent.SetDestination(patrolPath[patrolPathIndex].transform.position);
+        guardNavAgent.SetDestination(patrolPath[patrolPathIndex].transform.position);
         rgdbdy = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
-        if(canSeePlayer)
+        if(guardCanSeePlayer)
         {
             swingSword();
         }
 
-        if (guardAgent.pathPending)
+        if (guardNavAgent.pathPending)
         {
             return;
         }
 
         elapsedTime = Time.time - stopTime;
 
-        Vector3 lookingAt = guardAgent.destination - transform.position;
+        Vector3 lookingAt = guardNavAgent.destination - transform.position;
         Vector3 toPlayer = player.transform.position - transform.position;
         float visualAngle = Vector3.Angle(Vector3.Normalize(lookingAt), Vector3.Normalize(toPlayer));
 
         // NavMeshHit hit;
-        // if (!guardAgent.Raycast(player.transform.position, out hit))
+        // if (!guardNavAgent.Raycast(player.transform.position, out hit))
         // {
-        //     canSeePlayer = true;
+        //     guardCanSeePlayer = true;
         // }
         // else
         // {
-        //     canSeePlayer = false;
+        //     guardCanSeePlayer = false;
         // }
 
         RaycastHit hit;
@@ -99,25 +92,25 @@ public class GuardBehavior : MonoBehaviour
             {
                 Debug.DrawRay(guardEye.transform.position, Vector3.Normalize(player.transform.position - guardEye.transform.position) * hit.distance, Color.yellow);
                 //Debug.Log("Did Hit");
-                canSeePlayer = true;
+                guardCanSeePlayer = true;
             }
             else
             {
                 Debug.DrawRay(guardEye.transform.position, Vector3.Normalize(player.transform.position - guardEye.transform.position) * 1000, Color.white);
                 //Debug.Log("Did not Hit");
-                canSeePlayer = false;
+                guardCanSeePlayer = false;
                 // isPatroling = true;
             }
 
         }
 
-        if (canSeePlayer)
+        if (guardCanSeePlayer)
         {
             isPatroling = false;
-            guardAgent.SetDestination(player.transform.position - transform.forward * stoppingDistance);
+            guardNavAgent.SetDestination(player.transform.position - transform.forward * guardStoppingDistance);
         }
         
-        if (guardAgent.remainingDistance <= guardAgent.stoppingDistance)
+        if (guardNavAgent.remainingDistance <= guardNavAgent.guardStoppingDistance)
         {
             if (isPatroling)
             {
@@ -134,7 +127,7 @@ public class GuardBehavior : MonoBehaviour
 
         if (isPatroling && (elapsedTime > 1.0f))
         {
-            guardAgent.SetDestination(patrolPath[patrolPathIndex].transform.position);
+            guardNavAgent.SetDestination(patrolPath[patrolPathIndex].transform.position);
         }
 
     }
@@ -143,18 +136,18 @@ public class GuardBehavior : MonoBehaviour
     {
         if(swingState == 1)
         {
-            swordHand.transform.Rotate(Vector3.up, -swingSpeed);
-            if (swordHand.transform.localEulerAngles.y >= swingEndAngle &&
-                swordHand.transform.localEulerAngles.y <= swingStartAngle)
+            guardSwordHand.transform.Rotate(Vector3.up, -swingSpeed);
+            if (guardSwordHand.transform.localEulerAngles.y >= swingEndAngle &&
+                guardSwordHand.transform.localEulerAngles.y <= swingStartAngle)
             {
                 swingState = 4;
             }
         }
         else if(swingState == 2)
         {
-            swordHand.transform.Rotate(Vector3.up, swingSpeed);
-            if (swordHand.transform.localEulerAngles.y <= swingStartAngle &&
-                swordHand.transform.localEulerAngles.y >= swingEndAngle)
+            guardSwordHand.transform.Rotate(Vector3.up, swingSpeed);
+            if (guardSwordHand.transform.localEulerAngles.y <= swingStartAngle &&
+                guardSwordHand.transform.localEulerAngles.y >= swingEndAngle)
             {
                 swingState = 3;
             }

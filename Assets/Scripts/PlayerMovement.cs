@@ -74,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
         if (moveDir != Vector3.zero)
         {
             moveDir.y = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(camDir), rotationSpd);
+            Vector3 lookDir = new Vector3(camDir.x, 0, camDir.z);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), rotationSpd);
         }
 
         Vector2 inputMvnt = new Vector2(horizontal, vertical);

@@ -181,4 +181,9 @@ public class GuardBehavior : MonoBehaviour
             }
         }
     }
+
+    public void setGuardActive()
+    {
+        canSeePlayer = true;
+    }
 }

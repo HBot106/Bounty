@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDir = (forward * vertical + right * horizontal).normalized;
         Vector3 camDir = (forward * vertical * vertSign + right * horizontal * vertSign).normalized;
-
         if (moveDir != Vector3.zero)
         {
             moveDir.y = 0;
@@ -122,5 +121,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
         }
+    }
+
+    public float getCurSpeed()
+    {
+        return curSpeed;
     }
 }

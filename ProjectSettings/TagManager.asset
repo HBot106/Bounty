@@ -7,6 +7,7 @@ TagManager:
   - GuardSword
   - PlayerSword
   - Ground
+  - Guard
   layers:
   - Default
   - TransparentFX

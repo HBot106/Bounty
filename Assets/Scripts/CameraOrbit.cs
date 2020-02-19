@@ -36,21 +36,18 @@ public class CameraOrbit : MonoBehaviour
     {
         _XForm_Parent.position = target.position;
 
-        //if (Input.GetMouseButton(0))
-        //{
-            //Rotation of the Camera based on Mouse Coordinates
-            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-            {
-                _LocalRotation.x += Input.GetAxis("Mouse X") * MouseSensitivity;
-                _LocalRotation.y += Input.GetAxis("Mouse Y") * MouseSensitivity * -0.4f;
+        //Rotation of the Camera based on Mouse Coordinates
+        if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+        {
+            _LocalRotation.x += Input.GetAxis("Mouse X") * MouseSensitivity;
+            _LocalRotation.y += Input.GetAxis("Mouse Y") * MouseSensitivity * -0.4f;
 
-                //Clamp the y Rotation to horizon and not flipping over at the top
-                if (_LocalRotation.y < 0f)
-                    _LocalRotation.y = 0f;
-                else if (_LocalRotation.y > 90f)
-                    _LocalRotation.y = 90f;
-            }
-        //}
+            //Clamp the y Rotation to horizon and not flipping over at the top
+            if (_LocalRotation.y < 0f)
+                _LocalRotation.y = 0f;
+            else if (_LocalRotation.y > 90f)
+                _LocalRotation.y = 90f;
+        }
 
         // Zooms in when crouching
         if (!crouch && pm.isCrouching)

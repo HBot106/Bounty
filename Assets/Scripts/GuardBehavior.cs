@@ -8,6 +8,16 @@ using UnityEngine.AI;
 
 public class GuardBehavior : MonoBehaviour
 {
+    public GameObject player_bounty_hunter;
+    public GameObject audible_disturbance;
+    public GameObject guard_eye;
+    public GameObject guard_sword_hand;
+    public GameObject[] guard_patrol_points;
+    public NavMeshAgent guard_nav_agent;
+    public bool guard_near_detection_cone_active;
+    public bool guard_far_detection_cone_active;
+    public int patrol_point_count;
+
 
     // STATE MACROS
     private static int STATE_GUARDING = 0;
@@ -24,20 +34,10 @@ public class GuardBehavior : MonoBehaviour
     private float guard_stopping_distance;
     private float guard_time_entered_guarding_state;
     private float guard_duration_of_stops;
-    public bool guard_near_detection_cone_active;
-    public bool guard_far_detection_cone_active;
-    public GameObject guard_eye;
-    public GameObject guard_sword_hand;
-    public NavMeshAgent guard_nav_agent;
-    public GameObject[] guard_patrol_points;
+
     private int patrol_point_index;
-    public int patrol_point_count;
+
     private Vector3 point_of_interest;
-    public GameObject player_bounty_hunter;
-    public GameObject audible_disturbance;
-
-
-
 
 
     // FIGHTING VARIABLES

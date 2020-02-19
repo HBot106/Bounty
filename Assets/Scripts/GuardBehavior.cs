@@ -19,7 +19,7 @@ public class GuardBehavior : MonoBehaviour
     public int guard_health;
 
     // guards state variables
-    private int guard_state;
+    public int guard_state;
     private bool guard_is_investigating;
     private float guard_stopping_distance;
     private float guard_time_entered_guarding_state;
@@ -48,7 +48,7 @@ public class GuardBehavior : MonoBehaviour
         guard_health = 3;
         guard_is_investigating = false;
         guard_can_see_player = false;
-        guard_stopping_distance = 2.0f;
+        guard_stopping_distance = 1.0f;
         guard_duration_of_stops = 2.0f;
         guard_time_entered_guarding_state = Time.time;
         point_of_interest = new Vector3(0f, 0f, 0f);
@@ -162,14 +162,14 @@ public class GuardBehavior : MonoBehaviour
     {
         if (guard_can_see_player)
         {
-            if (guard_far_detection_cone_active)
-            {
-                toChasing(player_bounty_hunter.transform.position);
-                return true;
-            }
-            else if (guard_near_detection_cone_active)
+            if (guard_near_detection_cone_active)
             {
                 toFighting();
+                return true;
+            }
+            else if (guard_far_detection_cone_active)
+            {
+                toChasing(player_bounty_hunter.transform.position);
                 return true;
             }
             return false;

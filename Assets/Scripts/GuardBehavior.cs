@@ -16,7 +16,7 @@ public class GuardBehavior : MonoBehaviour
     public NavMeshAgent guard_nav_agent;
     public bool guard_near_detection_cone_active;
     public bool guard_far_detection_cone_active;
-    public int patrol_point_count;
+    public bool guard_heard_disturbance;
 
 
     // STATE MACROS
@@ -51,7 +51,6 @@ public class GuardBehavior : MonoBehaviour
     private float swingEndAngle = 100f;
     private Rigidbody rgdbdy;
     public float playerHitForce;
-    private float life = 2;
 
     void Start()
     {
@@ -83,7 +82,8 @@ public class GuardBehavior : MonoBehaviour
 
         switch (guard_state)
         {
-            case STATE_GUARDING:
+            // STATE_GUARDING
+            case 0:
                 // WORK
                 // STATE TRANSITION
                 if (visualDetectionCheck())
@@ -100,7 +100,8 @@ public class GuardBehavior : MonoBehaviour
                 }
                 break;
 
-            case STATE_PATROLLING:
+            // STATE_PATROLLING
+            case 1:
                 // WORK
                 if (guard_is_investigating)
                 {
@@ -126,7 +127,8 @@ public class GuardBehavior : MonoBehaviour
                 }
                 break;
 
-            case STATE_CHASING:
+            // STATE_CHASING
+            case 2:
                 // WORK
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
@@ -141,7 +143,8 @@ public class GuardBehavior : MonoBehaviour
                 }
                 break;
 
-            case STATE_FIGHTING:
+            // STATE_FIGHTING
+            case 3:
                 // WORK
                 swingSword();
                 // STATE TRANSITION
@@ -155,8 +158,9 @@ public class GuardBehavior : MonoBehaviour
                 }
                 break;
 
-            case STATE_DYING:
-                SetActive(false);
+            // STATE_DYING
+            case 4:
+                gameObject.SetActive(false);
                 break;
 
             default:
@@ -171,12 +175,15 @@ public class GuardBehavior : MonoBehaviour
             if (guard_far_detection_cone_active)
             {
                 toChasing(player_bounty_hunter.transform.position);
+                return true;
             }
             else if (guard_near_detection_cone_active)
             {
                 toFighting();
+                return true;
             }
-            return true;
+            return false;
+            
         }
         else
         {
@@ -212,7 +219,7 @@ public class GuardBehavior : MonoBehaviour
 
     private bool targetReachedCheck()
     {
-        if (guard_nav_agent.remainingDistance <= guard_nav_agent.guard_stopping_distance)
+        if (guard_nav_agent.remainingDistance <= guard_stopping_distance)
         {
             toGuarding();
             return true;
@@ -226,6 +233,7 @@ public class GuardBehavior : MonoBehaviour
 
     public void toPatrolling(bool need_to_investigate, Vector3 position_to_investigate)
     {
+        guard_state = 1;
         point_of_interest = position_to_investigate;
         if (need_to_investigate)
         {
@@ -235,30 +243,34 @@ public class GuardBehavior : MonoBehaviour
         else
         {
             guard_is_investigating = false;
-            patrol_point_index = ((patrol_point_index + 1) % patrol_point_count);
+            patrol_point_index = ((patrol_point_index + 1) % guard_patrol_points.Length);
             return;
         }
     }
 
     public void toChasing(Vector3 position_to_investigate)
     {
+        guard_state = 2;
         point_of_interest = position_to_investigate;
         guard_is_investigating = true;
     }
 
     public void toGuarding()
     {
+        guard_state = 0;
         guard_time_entered_guarding_state = Time.time;
         guard_is_investigating = false;
     }
 
     public void toFighting()
     {
+        guard_state = 3;
         guard_is_investigating = false;
     }
 
     public void toDeath()
     {
+        guard_state = 4;
         guard_is_investigating = false;
     }
 
@@ -268,7 +280,7 @@ public class GuardBehavior : MonoBehaviour
         // Does the ray intersect any objects excluding the player_bounty_hunter layer
         if (Physics.Raycast(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position), out hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject.tag == "player")
+            if (hit.collider.gameObject.tag == "Player")
             {
                 Debug.DrawRay(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position) * hit.distance, Color.yellow);
                 //Debug.Log("Did Hit");
@@ -323,7 +335,7 @@ public class GuardBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerSword"))
         {
-            if (isPatroling)
+            if (!guard_can_see_player)
             {
                 Debug.Log("Guard Assassinated!");
                 Destroy(gameObject);
@@ -334,8 +346,8 @@ public class GuardBehavior : MonoBehaviour
 
                 Vector3 hitDirection = (transform.position - other.transform.root.transform.position).normalized + Vector3.up;
                 rgdbdy.AddForce(hitDirection * playerHitForce, ForceMode.Impulse);
-                life--;
-                if (life == 0)
+                guard_health--;
+                if (guard_health == 0)
                 {
                     Debug.Log("Guard Killed!");
                     Destroy(gameObject);

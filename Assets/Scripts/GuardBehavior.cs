@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-
-
 public class GuardBehavior : MonoBehaviour
 {
     public GameObject player_bounty_hunter;
@@ -14,23 +11,16 @@ public class GuardBehavior : MonoBehaviour
     public GameObject guard_sword_hand;
     public GameObject[] guard_patrol_points;
     public NavMeshAgent guard_nav_agent;
+    public LayerMask ignorLayerMask;
     public bool guard_near_detection_cone_active;
     public bool guard_far_detection_cone_active;
     public bool guard_heard_disturbance;
-
-
-    // STATE MACROS
-    private static int STATE_GUARDING = 0;
-    private static int STATE_PATROLLING = 1;
-    private static int STATE_CHASING = 2;
-    private static int STATE_FIGHTING = 3;
-    private static int STATE_DYING = 4;
+    public bool guard_can_see_player;
+    public int guard_health;
 
     // guards state variables
     private int guard_state;
-    private int guard_health;
     private bool guard_is_investigating;
-    private bool guard_can_see_player;
     private float guard_stopping_distance;
     private float guard_time_entered_guarding_state;
     private float guard_duration_of_stops;
@@ -49,12 +39,12 @@ public class GuardBehavior : MonoBehaviour
     private float swingDelayCounter;
     private float swingStartAngle = 250f;
     private float swingEndAngle = 100f;
-    private Rigidbody rgdbdy;
-    public float playerHitForce;
+
+
 
     void Start()
     {
-        guard_state = STATE_PATROLLING;
+        guard_state = 1;
         guard_health = 3;
         guard_is_investigating = false;
         guard_can_see_player = false;
@@ -63,7 +53,7 @@ public class GuardBehavior : MonoBehaviour
         guard_time_entered_guarding_state = Time.time;
         point_of_interest = new Vector3(0f, 0f, 0f);
 
-        rgdbdy = GetComponent<Rigidbody>();
+
     }
 
     void FixedUpdate()
@@ -183,7 +173,7 @@ public class GuardBehavior : MonoBehaviour
                 return true;
             }
             return false;
-            
+
         }
         else
         {
@@ -278,7 +268,7 @@ public class GuardBehavior : MonoBehaviour
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player_bounty_hunter layer
-        if (Physics.Raycast(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position), out hit, Mathf.Infinity))
+        if (Physics.Raycast(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position), out hit, Mathf.Infinity, ignorLayerMask))
         {
             if (hit.collider.gameObject.tag == "Player")
             {
@@ -328,31 +318,6 @@ public class GuardBehavior : MonoBehaviour
         else
         {
             swingState = 1;
-        }
-
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("PlayerSword"))
-        {
-            if (!guard_can_see_player)
-            {
-                Debug.Log("Guard Assassinated!");
-                Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("Guard Hit!");
-
-                Vector3 hitDirection = (transform.position - other.transform.root.transform.position).normalized + Vector3.up;
-                rgdbdy.AddForce(hitDirection * playerHitForce, ForceMode.Impulse);
-                guard_health--;
-                if (guard_health == 0)
-                {
-                    Debug.Log("Guard Killed!");
-                    Destroy(gameObject);
-                }
-            }
         }
     }
 }

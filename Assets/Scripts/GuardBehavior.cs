@@ -18,7 +18,7 @@ public class GuardBehavior : MonoBehaviour
     private int patrolPathIndex;
     private float stopTime;
     private float elapsedTime;
-    private bool canSeePlayer;
+    public bool canSeePlayer;
     private float stoppingDistance = 2f;
 
     // 0 = not swinging, 1 = swinging right, 2 = swinging left, 
@@ -48,11 +48,10 @@ public class GuardBehavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(canSeePlayer)
+        if (canSeePlayer)
         {
             swingSword();
         }
-
         if (guardAgent.pathPending)
         {
             return;

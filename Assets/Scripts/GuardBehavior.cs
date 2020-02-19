@@ -180,5 +180,10 @@ public class GuardBehavior : MonoBehaviour
                 }
             }
         }
+
+        if (other.gameObject.CompareTag("PlayerKnifeProjectile"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

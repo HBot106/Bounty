@@ -16,7 +16,7 @@ public class GuardBehavior : MonoBehaviour
     private static int STATE_FIGHTING = 3;
     private static int STATE_DYING = 4;
 
-    // guards state information
+    // guards state variables
     private int guard_state;
     private int guard_health;
     private bool guard_is_investigating;
@@ -40,12 +40,10 @@ public class GuardBehavior : MonoBehaviour
 
 
 
-
-
+    // FIGHTING VARIABLES
     // 0 = not swinging, 1 = swinging right, 2 = swinging left, 
     // 3 = waiting to swing right, 4 = waiting to swing left
     public int swingState;
-
     public float swingSpeed;
     public float swingDelay;
     private float swingDelayCounter;

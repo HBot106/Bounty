@@ -17,24 +17,34 @@ public class GuardBehavior : MonoBehaviour
     private static int STATE_DYING = 4;
 
     // guards state information
-    private int guardState;
-    private int guardHealth;
-    private bool guardIsInvestigating;
-    private bool guardCanSeePlayer;
-    private float guardStoppingDistance = 2.0f;
-    public GameObject guardEye;
-    public GameObject guardSwordHand;
-    public NavMeshAgent guardNavAgent;
-    public GameObject[] guardPatrolPoints;
-    private int patrolPointIndex;
-    public int patrolPointCount;
-    private Vector3 pointOfInterest;
-    private GameObject player;
-    
+    private int guard_state;
+    private int guard_health;
+    private bool guard_is_investigating;
+    private bool guard_can_see_player;
+    private float guard_stopping_distance;
+    private float guard_time_entered_guarding_state;
+    private float guard_duration_of_stops;
+    public bool guard_near_detection_cone_active;
+    public bool guard_far_detection_cone_active;
+    public GameObject guard_eye;
+    public GameObject guard_sword_hand;
+    public NavMeshAgent guard_nav_agent;
+    public GameObject[] guard_patrol_points;
+    private int patrol_point_index;
+    public int patrol_point_count;
+    private Vector3 point_of_interest;
+    public GameObject player_bounty_hunter;
+    public GameObject audible_disturbance;
+
+
+
+
+
+
 
     // 0 = not swinging, 1 = swinging right, 2 = swinging left, 
     // 3 = waiting to swing right, 4 = waiting to swing left
-    public int swingState; 
+    public int swingState;
 
     public float swingSpeed;
     public float swingDelay;
@@ -47,112 +57,256 @@ public class GuardBehavior : MonoBehaviour
 
     void Start()
     {
-        guardCanSeePlayer = false;
-        isPatroling = true;
-        patrolPathIndex = 0;
-        swingDelayCounter = 0;
-        stopTime = Time.time;
-        guardNavAgent.SetDestination(patrolPath[patrolPathIndex].transform.position);
+        guard_state = STATE_PATROLLING;
+        guard_health = 3;
+        guard_is_investigating = false;
+        guard_can_see_player = false;
+        guard_stopping_distance = 2.0f;
+        guard_duration_of_stops = 2.0f;
+        guard_time_entered_guarding_state = Time.time;
+        point_of_interest = new Vector3(0f, 0f, 0f);
+
         rgdbdy = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
-        if(guardCanSeePlayer)
+        if (guard_health <= 0)
         {
-            swingSword();
+            toDeath();
         }
 
-        if (guardNavAgent.pathPending)
+        if (guard_nav_agent.pathPending)
         {
             return;
         }
 
-        elapsedTime = Time.time - stopTime;
+        checkLineOfSight();
 
-        Vector3 lookingAt = guardNavAgent.destination - transform.position;
-        Vector3 toPlayer = player.transform.position - transform.position;
-        float visualAngle = Vector3.Angle(Vector3.Normalize(lookingAt), Vector3.Normalize(toPlayer));
-
-        // NavMeshHit hit;
-        // if (!guardNavAgent.Raycast(player.transform.position, out hit))
-        // {
-        //     guardCanSeePlayer = true;
-        // }
-        // else
-        // {
-        //     guardCanSeePlayer = false;
-        // }
-
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(guardEye.transform.position, Vector3.Normalize(player.transform.position - guardEye.transform.position), out hit, Mathf.Infinity))
+        switch (guard_state)
         {
-            if (hit.collider.gameObject.tag == "Player")
+            case STATE_GUARDING:
+                // WORK
+                // STATE TRANSITION
+                if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (audibleDetectionCheck())
+                {
+                    break;
+                }
+                else if (timeoutCheck())
+                {
+                    break;
+                }
+                break;
+
+            case STATE_PATROLLING:
+                // WORK
+                if (guard_is_investigating)
+                {
+                    guard_nav_agent.SetDestination(point_of_interest);
+                }
+                else
+                {
+                    guard_nav_agent.SetDestination(guard_patrol_points[patrol_point_index].transform.position);
+                }
+                // STATE TRANSITION
+                if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (audibleDetectionCheck())
+                {
+                    break;
+                }
+                else if (targetReachedCheck())
+                // target reached
+                {
+                    break;
+                }
+                break;
+
+            case STATE_CHASING:
+                // WORK
+                guard_nav_agent.SetDestination(point_of_interest);
+                // STATE TRANSITION
+                if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (targetReachedCheck())
+                // target reached
+                {
+                    break;
+                }
+                break;
+
+            case STATE_FIGHTING:
+                // WORK
+                swingSword();
+                // STATE TRANSITION
+                if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else
+                {
+                    toGuarding();
+                }
+                break;
+
+            case STATE_DYING:
+                SetActive(false);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private bool visualDetectionCheck()
+    {
+        if (guard_can_see_player)
+        {
+            if (guard_far_detection_cone_active)
             {
-                Debug.DrawRay(guardEye.transform.position, Vector3.Normalize(player.transform.position - guardEye.transform.position) * hit.distance, Color.yellow);
+                toChasing(player_bounty_hunter.transform.position);
+            }
+            else if (guard_near_detection_cone_active)
+            {
+                toFighting();
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool audibleDetectionCheck()
+    {
+        if (guard_heard_disturbance)
+        {
+            toPatrolling(true, audible_disturbance.transform.position);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool timeoutCheck()
+    {
+        if ((Time.time - guard_time_entered_guarding_state) > guard_duration_of_stops)
+        {
+            toPatrolling(false, transform.position);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool targetReachedCheck()
+    {
+        if (guard_nav_agent.remainingDistance <= guard_nav_agent.guard_stopping_distance)
+        {
+            toGuarding();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public void toPatrolling(bool need_to_investigate, Vector3 position_to_investigate)
+    {
+        point_of_interest = position_to_investigate;
+        if (need_to_investigate)
+        {
+            guard_is_investigating = true;
+            return;
+        }
+        else
+        {
+            guard_is_investigating = false;
+            patrol_point_index = ((patrol_point_index + 1) % patrol_point_count);
+            return;
+        }
+    }
+
+    public void toChasing(Vector3 position_to_investigate)
+    {
+        point_of_interest = position_to_investigate;
+        guard_is_investigating = true;
+    }
+
+    public void toGuarding()
+    {
+        guard_time_entered_guarding_state = Time.time;
+        guard_is_investigating = false;
+    }
+
+    public void toFighting()
+    {
+        guard_is_investigating = false;
+    }
+
+    public void toDeath()
+    {
+        guard_is_investigating = false;
+    }
+
+    private void checkLineOfSight()
+    {
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player_bounty_hunter layer
+        if (Physics.Raycast(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position), out hit, Mathf.Infinity))
+        {
+            if (hit.collider.gameObject.tag == "player")
+            {
+                Debug.DrawRay(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position) * hit.distance, Color.yellow);
                 //Debug.Log("Did Hit");
-                guardCanSeePlayer = true;
+                guard_can_see_player = true;
             }
             else
             {
-                Debug.DrawRay(guardEye.transform.position, Vector3.Normalize(player.transform.position - guardEye.transform.position) * 1000, Color.white);
+                Debug.DrawRay(guard_eye.transform.position, Vector3.Normalize(player_bounty_hunter.transform.position - guard_eye.transform.position) * 1000, Color.white);
                 //Debug.Log("Did not Hit");
-                guardCanSeePlayer = false;
+                guard_can_see_player = false;
                 // isPatroling = true;
             }
-
         }
-
-        if (guardCanSeePlayer)
-        {
-            isPatroling = false;
-            guardNavAgent.SetDestination(player.transform.position - transform.forward * guardStoppingDistance);
-        }
-        
-        if (guardNavAgent.remainingDistance <= guardNavAgent.guardStoppingDistance)
-        {
-            if (isPatroling)
-            {
-                stopTime = Time.time;
-                patrolPathIndex = (patrolPathIndex + 1) % 5;
-            }
-            else
-            {
-                //attack player you have reached them
-                stopTime = Time.time;
-                //isPatroling = true;
-            }
-        }
-
-        if (isPatroling && (elapsedTime > 1.0f))
-        {
-            guardNavAgent.SetDestination(patrolPath[patrolPathIndex].transform.position);
-        }
-
     }
 
     private void swingSword()
     {
-        if(swingState == 1)
+        if (swingState == 1)
         {
-            guardSwordHand.transform.Rotate(Vector3.up, -swingSpeed);
-            if (guardSwordHand.transform.localEulerAngles.y >= swingEndAngle &&
-                guardSwordHand.transform.localEulerAngles.y <= swingStartAngle)
+            guard_sword_hand.transform.Rotate(Vector3.up, -swingSpeed);
+            if (guard_sword_hand.transform.localEulerAngles.y >= swingEndAngle &&
+                guard_sword_hand.transform.localEulerAngles.y <= swingStartAngle)
             {
                 swingState = 4;
             }
         }
-        else if(swingState == 2)
+        else if (swingState == 2)
         {
-            guardSwordHand.transform.Rotate(Vector3.up, swingSpeed);
-            if (guardSwordHand.transform.localEulerAngles.y <= swingStartAngle &&
-                guardSwordHand.transform.localEulerAngles.y >= swingEndAngle)
+            guard_sword_hand.transform.Rotate(Vector3.up, swingSpeed);
+            if (guard_sword_hand.transform.localEulerAngles.y <= swingStartAngle &&
+                guard_sword_hand.transform.localEulerAngles.y >= swingEndAngle)
             {
                 swingState = 3;
             }
         }
-        else if(swingState == 3 || swingState == 4)
+        else if (swingState == 3 || swingState == 4)
         {
             swingDelayCounter++;
             if (swingDelayCounter >= swingDelay)
@@ -165,13 +319,13 @@ public class GuardBehavior : MonoBehaviour
         {
             swingState = 1;
         }
-        
+
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerSword"))
         {
-            if(isPatroling)
+            if (isPatroling)
             {
                 Debug.Log("Guard Assassinated!");
                 Destroy(gameObject);
@@ -183,7 +337,7 @@ public class GuardBehavior : MonoBehaviour
                 Vector3 hitDirection = (transform.position - other.transform.root.transform.position).normalized + Vector3.up;
                 rgdbdy.AddForce(hitDirection * playerHitForce, ForceMode.Impulse);
                 life--;
-                if(life == 0)
+                if (life == 0)
                 {
                     Debug.Log("Guard Killed!");
                     Destroy(gameObject);

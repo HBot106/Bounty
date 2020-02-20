@@ -319,5 +319,38 @@ public class GuardBehavior : MonoBehaviour
         {
             swingState = 1;
         }
+<<<<<<< HEAD
+=======
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerSword"))
+        {
+            if(isPatroling)
+            {
+                Debug.Log("Guard Assassinated!");
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("Guard Hit!");
+
+                Vector3 hitDirection = (transform.position - other.transform.root.transform.position).normalized + Vector3.up;
+                rgdbdy.AddForce(hitDirection * playerHitForce, ForceMode.Impulse);
+                life--;
+                if(life == 0)
+                {
+                    Debug.Log("Guard Killed!");
+                    Destroy(gameObject);
+                }
+            }
+        }
+
+        if (other.gameObject.CompareTag("PlayerKnifeProjectile"))
+        {
+            Destroy(gameObject);
+        }
+>>>>>>> origin/projectile
     }
 }

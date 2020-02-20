@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraOrbit : MonoBehaviour
 {
-
     protected Transform _XForm_Camera;
     protected Transform _XForm_Parent;
     public Transform target;

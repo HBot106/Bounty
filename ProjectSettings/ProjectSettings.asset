@@ -580,6 +580,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
+<<<<<<< HEAD
     1: PROBUILDER_EXPERIMENTAL_FEATURES
     7: PROBUILDER_EXPERIMENTAL_FEATURES
     13: PROBUILDER_EXPERIMENTAL_FEATURES
@@ -589,6 +590,10 @@ PlayerSettings:
     27: PROBUILDER_EXPERIMENTAL_FEATURES
     28: PROBUILDER_EXPERIMENTAL_FEATURES
     29: PROBUILDER_EXPERIMENTAL_FEATURES
+=======
+    1: TMP_PRESENT
+    13: TMP_PRESENT
+>>>>>>> origin/guardMergeBackup
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

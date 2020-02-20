@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Store Assets.meta
 guid: 8a9c6b9faab8c3b43b9a6a312999725e
+=======
+guid: 74e568f43ebcbfd45964fbb3aeed29fe
+>>>>>>> origin/guardMergeBackup:Assets/Store Assets.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

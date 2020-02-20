@@ -17,7 +17,7 @@ public class GuardDamage : MonoBehaviour
             {
 
                 Debug.Log("Guard Assassinated!");
-                Destroy(guardObject);
+                Destroy(guardObject.transform.parent.gameObject);
             }
             else
             {

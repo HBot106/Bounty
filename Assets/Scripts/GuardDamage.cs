@@ -15,6 +15,8 @@ public class GuardDamage : MonoBehaviour
         {
             if (!behaviorScript.guard_can_see_player)
             {
+                Debug.Log("Guard Hit!");
+
                 Debug.Log("Guard Assassinated!");
                 Destroy(guardObject);
             }
@@ -36,7 +38,7 @@ public class GuardDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rgdbdy = GetComponent<Rigidbody>();
+        rgdbdy = guardObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

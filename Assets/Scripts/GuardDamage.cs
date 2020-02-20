@@ -27,6 +27,10 @@ public class GuardDamage : MonoBehaviour
                 behaviorScript.guard_health--;
             }
         }
+        if (other.gameObject.CompareTag("PlayerKnifeProjectile"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update

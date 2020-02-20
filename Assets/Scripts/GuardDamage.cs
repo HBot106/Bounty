@@ -15,7 +15,6 @@ public class GuardDamage : MonoBehaviour
         {
             if (!behaviorScript.guard_can_see_player)
             {
-                Debug.Log("Guard Hit!");
 
                 Debug.Log("Guard Assassinated!");
                 Destroy(guardObject);

@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject knife;
     public GameObject knifeHitBox;
 
+    //health
+    public int health = 3;
+    private HeartsHealthVisual healthUI;
+
     // Projectiles
     public GameObject player;
     public GameObject projectile_knife;
@@ -45,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         rgdbdy = GetComponent<Rigidbody>();
         stabTimer = 0;
         knifeHitBox.SetActive(false);
+        healthUI = GameObject.Find("HeartHealthVisual").GetComponent<HeartsHealthVisual>();
     }
 
     private void Update()
@@ -169,6 +174,14 @@ public class PlayerMovement : MonoBehaviour
             Vector3 hitDirection = (transform.position - other.transform.root.transform.position).normalized + Vector3.up;
 
             rgdbdy.AddForce(hitDirection * guardHitForce, ForceMode.Impulse);
+            health--;
+            healthUI.Damage(4);
+            if(health <= 0)
+            {
+                Debug.Log("Game Over!");
+                GameObject.Find("Game Over").SetActive(true);
+                Destroy(gameObject);
+            }
         }
     }
 

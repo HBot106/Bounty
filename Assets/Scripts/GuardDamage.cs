@@ -11,6 +11,7 @@ public class GuardDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("triggered");
         if (other.gameObject.CompareTag("PlayerSword"))
         {
             if (!behaviorScript.guard_can_see_player)
@@ -18,7 +19,7 @@ public class GuardDamage : MonoBehaviour
                 Debug.Log("Guard Hit!");
 
                 Debug.Log("Guard Assassinated!");
-                Destroy(guardObject);
+                Destroy(guardObject.transform.parent.gameObject);
             }
             else
             {

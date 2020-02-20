@@ -137,6 +137,7 @@ public class GuardBehavior : MonoBehaviour
             case 3:
                 // WORK
                 swingSword();
+                guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
                 {

@@ -45,8 +45,8 @@ public class CameraOrbit : MonoBehaviour
                 _LocalRotation.y += Input.GetAxis("Mouse Y") * MouseSensitivity * -0.4f;
 
                 //Clamp the y Rotation to horizon and not flipping over at the top
-                if (_LocalRotation.y < 0f)
-                    _LocalRotation.y = 0f;
+                if (_LocalRotation.y < -18f)
+                    _LocalRotation.y = -18f;
                 else if (_LocalRotation.y > 90f)
                     _LocalRotation.y = 90f;
             }

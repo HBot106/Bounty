@@ -18,7 +18,11 @@ public class Milestone2KeyDestroyer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Key got!");
-        Destroy(gameObject);
+        if ( collision.gameObject.CompareTag( "Player" ) )
+        {
+            Debug.Log( "Key got!" );
+            Destroy( gameObject );
+        }
+        
     }
 }

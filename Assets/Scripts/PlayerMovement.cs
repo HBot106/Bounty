@@ -36,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject projectile_fireball;
     private Vector3 knife_and_rock_start_pos;
 
-    public int number_of_knives = 2;
-    public int number_of_rocks = 3;
+    public static int number_of_knives = 2;
+    public static int number_of_rocks = 3;
 
 
     // Projectiles
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FireBallSpell()
     {
-        knife_and_rock_start_pos = transform.position + transform.forward * 1;
+        knife_and_rock_start_pos = transform.position + Vector3.up * 2 + transform.forward * 1;
         if (Input.GetKeyDown(KeyCode.C))
         {
             GameObject fireball = Instantiate(projectile_fireball, knife_and_rock_start_pos, Quaternion.identity) as GameObject;
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     void knifeOrRockThrow()
     {
 
-        knife_and_rock_start_pos = transform.position + transform.forward * 1;
+        knife_and_rock_start_pos = transform.position + Vector3.up * 2 + transform.forward * 1;
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (number_of_knives > 0)

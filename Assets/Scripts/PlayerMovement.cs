@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     //health
     public int health = 3;
     private HeartsHealthVisual healthUI;
+    public GameObject gameOverScreen;
 
     // Projectiles
     public GameObject player;
@@ -54,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if ( health <= 0 )
+        {
+            return;
+        }
+
         isCrouching = Input.GetButton("Crouch");
 
         if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
@@ -73,6 +79,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if ( health <= 0 )
+        {
+            return;
+        }
+
         movePlayer();
 
         if (isStabbing)
@@ -179,8 +190,8 @@ public class PlayerMovement : MonoBehaviour
             if(health <= 0)
             {
                 Debug.Log("Game Over!");
-                GameObject.Find("Game Over").SetActive(true);
-                Destroy(gameObject);
+                gameOverScreen.SetActive( true );
+                //Destroy(gameObject);
             }
         }
     }

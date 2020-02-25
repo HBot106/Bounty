@@ -48,7 +48,7 @@ public class GuardBehavior : MonoBehaviour
         guard_health = 3;
         guard_is_investigating = false;
         guard_can_see_player = false;
-        guard_stopping_distance = 1.0f;
+        guard_stopping_distance = 2.0f;
         guard_duration_of_stops = 2.0f;
         guard_time_entered_guarding_state = Time.time;
         point_of_interest = new Vector3(0f, 0f, 0f);
@@ -56,7 +56,7 @@ public class GuardBehavior : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (guard_health <= 0)
         {
@@ -151,7 +151,7 @@ public class GuardBehavior : MonoBehaviour
 
             // STATE_DYING
             case 4:
-                gameObject.SetActive(false);
+                gameObject.transform.parent.gameObject.SetActive(false);
                 break;
 
             default:
@@ -165,7 +165,7 @@ public class GuardBehavior : MonoBehaviour
         {
             if (guard_near_detection_cone_active)
             {
-                toFighting();
+                toFighting(player_bounty_hunter.transform.position);
                 return true;
             }
             else if (guard_far_detection_cone_active)
@@ -210,7 +210,7 @@ public class GuardBehavior : MonoBehaviour
 
     private bool targetReachedCheck()
     {
-        if (guard_nav_agent.remainingDistance <= guard_stopping_distance)
+        if (guard_nav_agent.remainingDistance <= guard_stopping_distance && guard_nav_agent.remainingDistance >= 0.0f)
         {
             toGuarding();
             return true;
@@ -253,9 +253,10 @@ public class GuardBehavior : MonoBehaviour
         guard_is_investigating = false;
     }
 
-    public void toFighting()
+    public void toFighting(Vector3 position_to_investigate)
     {
         guard_state = 3;
+        point_of_interest = position_to_investigate;
         guard_is_investigating = false;
     }
 

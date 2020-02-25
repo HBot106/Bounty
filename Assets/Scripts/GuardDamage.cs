@@ -17,7 +17,7 @@ public class GuardDamage : MonoBehaviour
             {
 
                 Debug.Log("Guard Assassinated!");
-                Destroy(guardObject.transform.parent.gameObject);
+                gameObject.transform.parent.transform.parent.gameObject.SetActive(false);
             }
             else
             {
@@ -30,7 +30,7 @@ public class GuardDamage : MonoBehaviour
         }
         if (other.gameObject.CompareTag("PlayerKnifeProjectile"))
         {
-            Destroy(gameObject);
+            gameObject.transform.parent.transform.parent.gameObject.SetActive(false);
         }
     }
 

@@ -205,7 +205,13 @@ namespace QuickPrimitives
 
             mesh.triangles = triangles;
 
-            SetCollider();
+            // SetCollider();
+            MeshCollider meshc = gameObject.AddComponent(typeof(MeshCollider)) as MeshCollider;
+            meshc.sharedMesh = mesh;
+            meshc.convex = true;
+            meshc.isTrigger = true;
+
+
 
             mesh.RecalculateBounds();
         }
@@ -313,7 +319,11 @@ namespace QuickPrimitives
 
                 meshFilter.sharedMesh.triangles = triangles;
 
-                SetCollider();
+                // SetCollider();
+                MeshCollider meshc = gameObject.GetComponent<MeshCollider>();
+                meshc.sharedMesh = meshFilter.sharedMesh;
+                meshc.convex = true;
+                meshc.isTrigger = true;
 
                 meshFilter.sharedMesh.RecalculateBounds();
             }

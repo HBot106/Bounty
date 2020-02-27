@@ -21,7 +21,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 3.3333333
+        time: 6.15
         value: 0
         inSlope: 0
         outSlope: 0
@@ -30,7 +30,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 8.433333
+        time: 11.25
         value: 2.92
         inSlope: 0
         outSlope: 0
@@ -66,7 +66,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 8.433333
+    m_StopTime: 11.25
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -86,7 +86,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 3.3333333
+        time: 6.15
         value: 0
         inSlope: 0
         outSlope: 0
@@ -95,7 +95,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 8.433333
+        time: 11.25
         value: 2.92
         inSlope: 0
         outSlope: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 3.5833333333333344
+    m_Start: 6.300000000000001
     m_ClipIn: 0
     m_Asset: {fileID: -1904373788268197311}
     m_Duration: 5
@@ -205,37 +205,19 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: CM_drone
   - m_Version: 1
-    m_Start: 1.1000000000000005
+    m_Start: 2.95
     m_ClipIn: 0
     m_Asset: {fileID: -4485180112910442482}
-    m_Duration: 2.4833333333333334
+    m_Duration: 3.35
     m_TimeScale: 1
     m_ParentTrack: {fileID: -6230764905060811521}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.8499999999999996
+    m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -277,13 +259,13 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 4648590860572682952}
-    m_Duration: 1.9500000000000002
+    m_Duration: 2.95
     m_TimeScale: 1
     m_ParentTrack: {fileID: -6230764905060811521}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.8499999999999996
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -415,6 +397,19 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: b5f6f7ce434c56d4d860447364c987fe
     defaultValue: {fileID: 0}
+--- !u!114 &-730685413908640158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11713d305d7707e41942120e920dbc6e, type: 3}
+  m_Name: Simple Marker
+  m_EditorClassIdentifier: 
+  m_Time: 2.95
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +453,8 @@ MonoBehaviour:
   m_Children: []
   m_Clips: []
   m_Markers:
-    m_Objects: []
+    m_Objects:
+    - {fileID: -730685413908640158}
 --- !u!114 &4648590860572682952
 MonoBehaviour:
   m_ObjectHideFlags: 1

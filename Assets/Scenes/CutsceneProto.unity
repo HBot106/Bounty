@@ -406,6 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 863060562}
   - component: {fileID: 863060563}
+  - component: {fileID: 863060564}
   m_Layer: 0
   m_Name: CM Cameras
   m_TagString: Untagged
@@ -450,11 +451,25 @@ PlayableDirector:
     value: {fileID: 591744234}
   - key: {fileID: -4653006062844632046, guid: 670d8dfe8d3f9684c99136ce4f11847f, type: 2}
     value: {fileID: 1879695773}
+  - key: {fileID: 155447982325036385, guid: 670d8dfe8d3f9684c99136ce4f11847f, type: 2}
+    value: {fileID: 863060561}
   m_ExposedReferences:
     m_References:
     - 0b770544671ed0b4d980c499afe94128: {fileID: 1283577626}
     - fabec9da7bceb384c8fd55a0dd7aa728: {fileID: 949229164}
     - b5f6f7ce434c56d4d860447364c987fe: {fileID: 1879695772}
+--- !u!114 &863060564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863060561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4397a320c58699e4a8f09e35cab66ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &866049089
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949229163}
   m_LocalRotation: {x: -0.049338862, y: 0.9272358, z: -0.13183533, w: -0.34701446}
-  m_LocalPosition: {x: 20.720001, y: 8.099999, z: 8.49}
+  m_LocalPosition: {x: 20.720001, y: 8.1, z: 8.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 402911339}
@@ -2533,7 +2548,7 @@ MonoBehaviour:
       defaultPlayerSequence: AudioWait(entrytag)
       defaultResponseMenuSequence: 
       entrytagFormat: 0
-      disableInternalSequencerCommands: 0
+      disableInternalSequencerCommands: 1
     inputSettings:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0

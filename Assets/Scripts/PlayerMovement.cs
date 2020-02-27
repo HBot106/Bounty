@@ -39,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
     public static int number_of_knives = 2;
     public static int number_of_rocks = 3;
 
+    // Animation
+    private Animator animator;
+
 
     // Projectiles
 
@@ -51,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         stabTimer = 0;
         knifeHitBox.SetActive(false);
         healthUI = GameObject.Find("HeartHealthVisual").GetComponent<HeartsHealthVisual>();
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -61,11 +66,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isCrouching = Input.GetButton("Crouch");
+        if (isCrouching)
+            animator.SetBool("isCrouching", true);
+        else
+            animator.SetBool("isCrouching", false);
+        Debug.Log(animator);
 
         if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
         {
             isStabbing = true;
             knifeHitBox.SetActive(true);
+            animator.SetBool("isStabbing", true);
         }
         if (!isJumping && Input.GetKeyDown(KeyCode.Space))
         {
@@ -155,6 +166,9 @@ public class PlayerMovement : MonoBehaviour
         float targetSpd = speed * inputMvnt.magnitude;
         curSpeed = Mathf.SmoothDamp(curSpeed, targetSpd, ref speedSmoothVel, speedSmoothTime);
         transform.position += moveDir * Time.deltaTime * curSpeed;
+
+        animator.SetFloat("velocity", curSpeed);
+        animator.SetFloat("vertical", vertical);
     }
 
     private void moveSword()
@@ -174,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
             stabTimer = 0;
             isStabbing = false;
             knifeHitBox.SetActive(false);
+            animator.SetBool("isStabbing", false);
         }
     }
 

@@ -6,6 +6,7 @@ public class DoorManager : MonoBehaviour
 {
     public GameObject player;
     public GameObject thisDoor;
+    public GameObject unlockPopup;
     public float transformXVal = 0;
     public float transformYVal = 0;
     public float transformZVal = 0;
@@ -28,7 +29,7 @@ public class DoorManager : MonoBehaviour
     {
         
     }
-    void OnGUI()
+    /*void OnGUI()
     {
         int windowXVal = ( Screen.width / 2 - lock_window_width / 2 );
         int windowYVal = ( Screen.height / 2 - lock_window_height / 2 );
@@ -44,15 +45,17 @@ public class DoorManager : MonoBehaviour
                     print( "Click!" );
                     encountered_locked_door = false;
                     door_is_locked = false;
+                    return;
                 }
                 else if ( GUI.Button( new Rect( windowXVal + 150, windowYVal + 50, 100, 50 ), "Leave" ) )
                 {
                    print( "You leave the door locked" );
+                    return;
                 }
             }  
         }
         
-    }
+    }*/
 
     private void OpenDoor()
     {
@@ -68,6 +71,7 @@ public class DoorManager : MonoBehaviour
     {
         if ( other.tag == "Player" && door_is_locked )
         {
+            unlockPopup.SetActive( true );
             encountered_locked_door = true;
         }
         else if ( other.tag == "Player" && !door_is_locked)

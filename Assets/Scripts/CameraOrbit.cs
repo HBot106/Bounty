@@ -31,6 +31,10 @@ public class CameraOrbit : MonoBehaviour
         pm = target.GetComponent<PlayerMovement>();
     }
 
+    public void adjustMouseSensitivity( float sensitivity )
+    {
+        MouseSensitivity = sensitivity;
+    }
 
     void LateUpdate()
     {

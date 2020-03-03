@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 3f, crouchSpd = 1.5f;
 
     private CharacterController controller;
-    private float curSpeed = 0f, speedSmoothVel = 0f, speedSmoothTime = 0.1f, rotationSpd = 0.05f;
+    private float curSpeed = 0f, speedSmoothVel = 0f, speedSmoothTime = 0.01f, rotationSpd = 0.05f;
     private Transform cameraTrans;
     private Rigidbody rgdbdy;
     public float guardHitForce;

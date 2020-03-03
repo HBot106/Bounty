@@ -197,8 +197,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 41
-        y: 108
+        x: 34
+        y: 44
         width: 160
         height: 30
     - id: 1
@@ -224,7 +224,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: Wow there, how are you child
+        value: 'So... I have a mission for you.
+
+'
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -250,24 +252,35 @@ MonoBehaviour:
       - originConversationID: 1
         originDialogueID: 1
         destinationConversationID: 1
-        destinationDialogueID: 2
+        destinationDialogueID: 6
         isConnector: 0
         priority: 2
       conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c4729539ea7be96479bb897b766ac260, type: 2}
+            m_MethodName: test
+            m_Mode: 3
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: doStuff
+              m_BoolArgument: 0
+            m_CallState: 2
       canvasRect:
         serializedVersion: 2
-        x: 77
-        y: 215
+        x: 70
+        y: 105
         width: 160
         height: 30
-    - id: 2
+    - id: 6
       fields:
       - title: Title
-        value: 
+        value: New Dialogue Entry
         type: 0
         typeString: CustomFieldType_Text
       - title: Description
@@ -275,11 +288,11 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 1
+        value: 2
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -287,7 +300,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: You're A Loser
+        value: 'There have been a group of bandits that are breathing down my neck.
+
+'
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -311,9 +326,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 2
+        originDialogueID: 6
         destinationConversationID: 1
-        destinationDialogueID: 3
+        destinationDialogueID: 7
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -323,14 +338,14 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 176
-        y: 329
+        x: 134
+        y: 159
         width: 160
         height: 30
-    - id: 3
+    - id: 7
       fields:
       - title: Title
-        value: 
+        value: New Dialogue Entry
         type: 0
         typeString: CustomFieldType_Text
       - title: Description
@@ -350,7 +365,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: "\tExcuse Me"
+        value: I need someone to get rid of them for me.
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -374,9 +389,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 3
+        originDialogueID: 7
         destinationConversationID: 1
-        destinationDialogueID: 4
+        destinationDialogueID: 8
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -386,14 +401,14 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 225
-        y: 446
+        x: 209
+        y: 210
         width: 160
         height: 30
-    - id: 4
+    - id: 8
       fields:
       - title: Title
-        value: 
+        value: New Dialogue Entry
         type: 0
         typeString: CustomFieldType_Text
       - title: Description
@@ -413,7 +428,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: You heard me
+        value: '... Is it a dangerous mission?
+
+'
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -437,9 +454,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 1
-        originDialogueID: 4
+        originDialogueID: 8
         destinationConversationID: 1
-        destinationDialogueID: 5
+        destinationDialogueID: 9
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -449,14 +466,14 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 348
-        y: 513
+        x: 259
+        y: 273
         width: 160
         height: 30
-    - id: 5
+    - id: 9
       fields:
       - title: Title
-        value: 
+        value: New Dialogue Entry
         type: 0
         typeString: CustomFieldType_Text
       - title: Description
@@ -476,7 +493,201 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: Get lost
+        value: A dangerous mission? Does it matter?
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Portraits Visible
+        value: True
+        type: 2
+        typeString: CustomFieldType_Boolean
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 9
+        destinationConversationID: 1
+        destinationDialogueID: 10
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 278
+        y: 333
+        width: 160
+        height: 30
+    - id: 10
+      fields:
+      - title: Title
+        value: New Dialogue Entry
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: If you don't take the gig, something might happen to your beloved
+          kid.
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Portraits Visible
+        value: True
+        type: 2
+        typeString: CustomFieldType_Boolean
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 10
+        destinationConversationID: 1
+        destinationDialogueID: 14
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 336
+        y: 389
+        width: 160
+        height: 30
+    - id: 12
+      fields:
+      - title: Title
+        value: New Dialogue Entry
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 'Fine. I''ll do it.
+
+'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Portraits Visible
+        value: True
+        type: 2
+        typeString: CustomFieldType_Boolean
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 12
+        destinationConversationID: 1
+        destinationDialogueID: 13
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 265
+        y: 510
+        width: 160
+        height: 30
+    - id: 13
+      fields:
+      - title: Title
+        value: New Dialogue Entry
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 'That''s what I like to hear.
+
+'
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -506,8 +717,73 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 558
-        y: 529
+        x: 469
+        y: 545
+        width: 160
+        height: 30
+    - id: 14
+      fields:
+      - title: Title
+        value: New Dialogue Entry
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: '...
+
+'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Portraits Visible
+        value: True
+        type: 2
+        typeString: CustomFieldType_Boolean
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 14
+        destinationConversationID: 1
+        destinationDialogueID: 12
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 236
+        y: 452
         width: 160
         height: 30
     canvasScrollPosition: {x: 0, y: 0}

@@ -9,7 +9,7 @@ public class CameraOrbit : MonoBehaviour
     public Transform target;
 
     protected Vector3 _LocalRotation;
-    protected float _CameraDistance = 10f;
+    protected float _CameraDistance = 5f;
 
     public float MouseSensitivity = 4f;
     public float ScrollSensitvity = 2f;
@@ -29,8 +29,13 @@ public class CameraOrbit : MonoBehaviour
         this._XForm_Camera = this.transform;
         this._XForm_Parent = this.transform.parent;
         pm = target.GetComponent<PlayerMovement>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void adjustMouseSensitivity( float sensitivity )
+    {
+        MouseSensitivity = sensitivity;
+    }
 
     void LateUpdate()
     {

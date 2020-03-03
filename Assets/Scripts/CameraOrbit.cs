@@ -29,6 +29,7 @@ public class CameraOrbit : MonoBehaviour
         this._XForm_Camera = this.transform;
         this._XForm_Parent = this.transform.parent;
         pm = target.GetComponent<PlayerMovement>();
+        Screen.lockCursor = true;
     }
 
 
@@ -42,12 +43,13 @@ public class CameraOrbit : MonoBehaviour
             _LocalRotation.x += Input.GetAxis("Mouse X") * MouseSensitivity;
             _LocalRotation.y += Input.GetAxis("Mouse Y") * MouseSensitivity * -0.4f;
 
-            //Clamp the y Rotation to horizon and not flipping over at the top
-            if (_LocalRotation.y < 0f)
-                _LocalRotation.y = 0f;
-            else if (_LocalRotation.y > 90f)
-                _LocalRotation.y = 90f;
-        }
+                //Clamp the y Rotation to horizon and not flipping over at the top
+                if (_LocalRotation.y < -18f)
+                    _LocalRotation.y = -18f;
+                else if (_LocalRotation.y > 90f)
+                    _LocalRotation.y = 90f;
+            }
+        //}
 
         // Zooms in when crouching
         if (!crouch && pm.isCrouching)

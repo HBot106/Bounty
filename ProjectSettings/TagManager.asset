@@ -8,6 +8,8 @@ TagManager:
   - PlayerSword
   - Ground
   - Guard
+  - PlayerKnifeProjectile
+  - PlayerRockProjectile
   layers:
   - Default
   - TransparentFX

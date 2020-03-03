@@ -59,6 +59,7 @@ public class DoorManager : MonoBehaviour
             else
             {
                 unlockPopup.SetActive( true );
+                Cursor.lockState = CursorLockMode.None;
             }
 
             /*StartCoroutine( WaitForUIRoutine() );

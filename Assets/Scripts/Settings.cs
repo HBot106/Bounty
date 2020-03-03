@@ -11,11 +11,13 @@ public class Settings : MonoBehaviour
         if ( Input.GetKeyDown( KeyCode.O ) )
         {
             settingsMenu.gameObject.SetActive( true );
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
     public void ReturnToGame()
     {
         settingsMenu.gameObject.SetActive( false );
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

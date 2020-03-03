@@ -7,7 +7,17 @@ public class MainMenu : MonoBehaviour
 {   
     public void PlayLevel1()
     {
-        SceneManager.LoadScene( "Level1" );
+        SceneManager.LoadScene( "" );
+    }
+
+    public void PlayLevel2()
+    {
+        SceneManager.LoadScene( "GuardTesting" );
+    }
+
+    public void PlayLevel3()
+    {
+        SceneManager.LoadScene( "" );
     }
 
     public void QuitGame()

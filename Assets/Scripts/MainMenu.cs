@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {   
     public void PlayLevel1()
     {
-        SceneManager.LoadScene( "" );
+        SceneManager.LoadScene( "Tutorial" );
     }
 
     public void PlayLevel2()

@@ -12,6 +12,8 @@ TagManager:
   - LockedDoor
   - UnlockedDoor
   - Target
+  - PlayerFireProjectile
+  - Guard
   layers:
   - Default
   - TransparentFX

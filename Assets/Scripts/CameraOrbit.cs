@@ -9,7 +9,7 @@ public class CameraOrbit : MonoBehaviour
     public Transform target;
 
     protected Vector3 _LocalRotation;
-    protected float _CameraDistance = 10f;
+    protected float _CameraDistance = 5f;
 
     public float MouseSensitivity = 4f;
     public float ScrollSensitvity = 2f;

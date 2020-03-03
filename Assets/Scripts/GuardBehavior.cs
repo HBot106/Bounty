@@ -273,11 +273,13 @@ public class GuardBehavior : MonoBehaviour
 
     public void setGuardActive()
     {
+        guard_heard_disturbance = true;
         return;
     }
 
     public void setPointOfInterest(Vector3 POI)
     {
+        point_of_interest = POI;
         return;
     }
 

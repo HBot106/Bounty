@@ -29,7 +29,7 @@ public class CameraOrbit : MonoBehaviour
         this._XForm_Camera = this.transform;
         this._XForm_Parent = this.transform.parent;
         pm = target.GetComponent<PlayerMovement>();
-        Screen.lockCursor = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void adjustMouseSensitivity( float sensitivity )

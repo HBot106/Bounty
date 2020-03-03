@@ -8,6 +8,7 @@ public class UnlockPopupScript : MonoBehaviour
     public void ExitPopupMenu()
     {
         popupMenu.SetActive( false );
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 

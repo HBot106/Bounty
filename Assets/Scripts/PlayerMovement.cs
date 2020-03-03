@@ -36,8 +36,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject projectile_fireball;
     private Vector3 knife_and_rock_start_pos;
 
-    public int number_of_knives = 2;
-    public int number_of_rocks = 3;
+    public static int number_of_knives = 2;
+    public static int number_of_rocks = 3;
+
+    // Animation
+    private Animator animator;
 
 
     // Projectiles
@@ -51,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         stabTimer = 0;
         knifeHitBox.SetActive(false);
         healthUI = GameObject.Find("HeartHealthVisual").GetComponent<HeartsHealthVisual>();
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -61,11 +66,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isCrouching = Input.GetButton("Crouch");
+        if (isCrouching)
+            animator.SetBool("isCrouching", true);
+        else
+            animator.SetBool("isCrouching", false);
+        Debug.Log(animator);
 
         if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
         {
             isStabbing = true;
             knifeHitBox.SetActive(true);
+            animator.SetBool("isStabbing", true);
         }
         if (!isJumping && Input.GetKeyDown(KeyCode.Space))
         {
@@ -94,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FireBallSpell()
     {
-        knife_and_rock_start_pos = transform.position + transform.forward * 1;
+        knife_and_rock_start_pos = transform.position + Vector3.up * 2 + transform.forward * 1;
         if (Input.GetKeyDown(KeyCode.C))
         {
             GameObject fireball = Instantiate(projectile_fireball, knife_and_rock_start_pos, Quaternion.identity) as GameObject;
@@ -107,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
     void knifeOrRockThrow()
     {
 
-        knife_and_rock_start_pos = transform.position + transform.forward * 1;
+        knife_and_rock_start_pos = transform.position + Vector3.up * 2 + transform.forward * 1;
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (number_of_knives > 0)
@@ -142,7 +153,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDir = (forward * vertical + right * horizontal).normalized;
         Vector3 camDir = (forward * vertical * vertSign + right * horizontal * vertSign).normalized;
-
         if (moveDir != Vector3.zero)
         {
             moveDir.y = 0;
@@ -155,6 +165,9 @@ public class PlayerMovement : MonoBehaviour
         float targetSpd = speed * inputMvnt.magnitude;
         curSpeed = Mathf.SmoothDamp(curSpeed, targetSpd, ref speedSmoothVel, speedSmoothTime);
         transform.position += moveDir * Time.deltaTime * curSpeed;
+
+        animator.SetFloat("velocity", curSpeed);
+        animator.SetFloat("vertical", vertical);
     }
 
     private void moveSword()
@@ -174,6 +187,7 @@ public class PlayerMovement : MonoBehaviour
             stabTimer = 0;
             isStabbing = false;
             knifeHitBox.SetActive(false);
+            animator.SetBool("isStabbing", false);
         }
     }
 
@@ -202,5 +216,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
         }
+    }
+
+    public float getCurSpeed()
+    {
+        return curSpeed;
     }
 }

@@ -325,8 +325,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c88f000e7cd6f45913688855376444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 7151625163884011432, guid: 72491b3c58fe0d4d8af6353a6063ca66, type: 3}
   thisDoor: {fileID: 5152643354354794059}
+  unlockPopup: {fileID: 0}
+  popupScript: {fileID: 0}
+  transformXVal: 0
+  transformYVal: 0
+  transformZVal: 0
   lockStyle:
     m_Name: 
     m_Normal:
@@ -394,6 +399,8 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  door_is_locked: 1
+  unlock_current_door: 0
 --- !u!54 &1681153923
 Rigidbody:
   m_ObjectHideFlags: 0

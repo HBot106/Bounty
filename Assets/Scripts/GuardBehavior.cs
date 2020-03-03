@@ -269,6 +269,17 @@ public class GuardBehavior : MonoBehaviour
         guard_state = 4;
         guard_is_investigating = false;
     }
+    
+
+    public void setGuardActive()
+    {
+        return;
+    }
+
+    public void setPointOfInterest(Vector3 POI)
+    {
+        return;
+    }
 
     private void checkLineOfSight()
     {

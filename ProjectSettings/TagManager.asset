@@ -9,6 +9,9 @@ TagManager:
   - Ground
   - PlayerKnifeProjectile
   - PlayerRockProjectile
+  - LockedDoor
+  - UnlockedDoor
+  - Target
   layers:
   - Default
   - TransparentFX

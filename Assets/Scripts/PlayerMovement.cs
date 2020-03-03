@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float playerSpeed = 3f, crouchSpd = 1.5f;
+    public float playerSpeed = 3f, crouchSpd = 1.5f;
 
     private CharacterController controller;
     private float curSpeed = 0f, speedSmoothVel = 0f, speedSmoothTime = 0.1f, rotationSpd = 0.05f;

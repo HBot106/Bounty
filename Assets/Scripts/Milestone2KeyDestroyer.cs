@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Milestone2KeyDestroyer : MonoBehaviour
 {
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class Milestone2KeyDestroyer : MonoBehaviour
         if ( collision.gameObject.CompareTag( "Player" ) )
         {
             Debug.Log( "Key got!" );
+            player.GetComponent<InventoryManager>().num_keys++;
             Destroy( gameObject );
         }
         

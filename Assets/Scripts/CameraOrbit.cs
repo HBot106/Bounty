@@ -32,6 +32,10 @@ public class CameraOrbit : MonoBehaviour
         Screen.lockCursor = true;
     }
 
+    public void adjustMouseSensitivity( float sensitivity )
+    {
+        MouseSensitivity = sensitivity;
+    }
 
     void LateUpdate()
     {

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int daggerCount = 5;
-    public int rockCount = 5;
+    public int daggerCount = 2;
+    public int rockCount = 3;
     public TextMeshProUGUI daggerText;
     public TextMeshProUGUI rockText;
     public Image goldKey;
@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
         UseKey(goldKey);
         UseKey(silverKey);
         UseKey(ironKey);
+        daggerText.text = "" + daggerCount;
+        rockText.text = "" + rockCount;
     }
 
     // Update is called once per frame
@@ -61,14 +63,14 @@ public class GameManager : MonoBehaviour
     }
 
     //decrease the amount of daggers
-    void UpdateDaggerCountDecrease()
+    public void UpdateDaggerCountDecrease()
     {
         daggerCount--;
         daggerText.text = "" + daggerCount;
     }
 
     //decrease the amount of rocks
-    void UpdateRockCountDecrease()
+    public void UpdateRockCountDecrease()
     {
         rockCount--;
         rockText.text = "" + rockCount;

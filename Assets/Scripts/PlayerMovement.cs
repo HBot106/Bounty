@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isCrouching", true);
         else
             animator.SetBool("isCrouching", false);
-        Debug.Log(animator);
 
         if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
         {
@@ -146,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        
+
         int vertSign = vertical >= 0 ? 1 : -1;
 
         Vector3 forward = cameraTrans.forward.normalized; //Forward based on camera's forward
@@ -156,8 +157,9 @@ public class PlayerMovement : MonoBehaviour
         if (moveDir != Vector3.zero)
         {
             moveDir.y = 0;
-            Vector3 lookDir = new Vector3(camDir.x, 0, camDir.z);
+            Vector3 lookDir = new Vector3(forward.x, 0, forward.z);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), rotationSpd);
+            Debug.Log(lookDir);
         }
 
         Vector2 inputMvnt = new Vector2(horizontal, vertical);
@@ -168,6 +170,8 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("velocity", curSpeed);
         animator.SetFloat("vertical", vertical);
+        animator.SetFloat("horizontal", horizontal);
+        Debug.Log(horizontal);
     }
 
     private void moveSword()

@@ -8,7 +8,7 @@ public class GuardBehavior : MonoBehaviour
     public GameObject player_bounty_hunter;
     public GameObject audible_disturbance;
     public GameObject guard_eye;
-    public GameObject guard_sword_hand;
+    // public GameObject guard_sword_hand;
     public GameObject[] guard_patrol_points;
     public NavMeshAgent guard_nav_agent;
     public LayerMask ignorLayerMask;
@@ -138,7 +138,7 @@ public class GuardBehavior : MonoBehaviour
             // STATE_FIGHTING
             case 3:
                 // WORK
-                swingSword();
+                /*swingSword();*/
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
@@ -305,7 +305,7 @@ public class GuardBehavior : MonoBehaviour
         }
     }
 
-    private void swingSword()
+    /*private void swingSword()
     {
         if (swingState == 1)
         {
@@ -338,5 +338,5 @@ public class GuardBehavior : MonoBehaviour
         {
             swingState = 1;
         } 
-    }
+    }*/
 }

@@ -30,12 +30,7 @@ public class DoorManager : MonoBehaviour
 
     private void OpenDoor()
     {
-        thisDoor.transform.position += new Vector3( transformXVal, transformYVal, transformZVal );
-    }
-
-    private void CloseDoor()
-    {
-        thisDoor.transform.position -= new Vector3( transformXVal, transformYVal, transformZVal );
+        Destroy( thisDoor.gameObject );
     }
 
     IEnumerator WaitForUIRoutine()
@@ -49,8 +44,6 @@ public class DoorManager : MonoBehaviour
     {
         if ( other.tag == "Player" && door_is_locked )
         {
-            //unlockPopup.SetActive( true );
-
             if ( player.GetComponent<InventoryManager>().num_keys > 0 )
             {
                 door_is_locked = false;
@@ -60,32 +53,13 @@ public class DoorManager : MonoBehaviour
             {
                 unlockPopup.SetActive( true );
                 Cursor.lockState = CursorLockMode.None;
-            }
-
-            /*StartCoroutine( WaitForUIRoutine() );
-
-            if (unlockPopup.GetComponent<UnlockPopupScript>().unlock_door && player.GetComponent<InventoryManager>().num_keys > 0 )
-            {
-                door_is_locked = false;
-                player.GetComponent<InventoryManager>().num_keys -= 1;
-                OpenDoor();
-                door_is_open = true;
-            }   */       
+            }   
         }
         
         if ( other.tag == "Player" && !door_is_locked )
         {
             OpenDoor();
             door_is_open = true;
-        }
-    }
-
-    private void OnTriggerExit( Collider other )
-    {
-        if ( door_is_open )
-        {
-            CloseDoor();
-            door_is_open = false;
         }
     }
 }

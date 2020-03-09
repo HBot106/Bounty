@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class InventoryManager : MonoBehaviour
+public class LevelComplete : MonoBehaviour
 {
-    public int num_keys = 1;
-    public int total_gold = 0;
-
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ReturnToGameMenu()
+    {
+        SceneManager.LoadScene( "MainMenu" );
     }
 }

@@ -10,6 +10,8 @@ public class BountyTargetScript : MonoBehaviour
     public GameObject player;
     public int hit_points = 1;
     public Vector3 offset_to_player = new Vector3( 0, 8, 0 );
+    public float gold = 2000.0f;
+
     private Animator targetAnimator;
     private bool capture_is_go = false;
     private bool target_is_captured = false;
@@ -76,5 +78,10 @@ public class BountyTargetScript : MonoBehaviour
         {
             capturePopup.SetActive( false );
         }
+    }
+
+    public void Award_Gold()
+    {
+
     }
 }

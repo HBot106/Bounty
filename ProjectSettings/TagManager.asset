@@ -15,6 +15,7 @@ TagManager:
   - PlayerFireProjectile
   - Guard
   - HealthPotion
+  - Ladder
   layers:
   - Default
   - TransparentFX

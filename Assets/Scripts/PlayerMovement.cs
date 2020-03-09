@@ -196,12 +196,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if(stabTimer < 5)
         {
-            knife.transform.Translate(Vector3.forward * stabSpeed);
+            // knife.transform.Translate(Vector3.forward * stabSpeed);
             stabTimer++;
         }
         else if(stabTimer < 10)
         {
-            knife.transform.Translate(Vector3.forward * -stabSpeed);
+            // knife.transform.Translate(Vector3.forward * -stabSpeed);
             stabTimer++;
         }
         else

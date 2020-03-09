@@ -46,6 +46,22 @@ public class PlayerMovement : MonoBehaviour
     // Projectiles
 
 
+    private GameManager gm;
+    private GameManager GM
+    {
+        get
+        {
+            if (gm == null)
+            {
+                gm = (GameManager)FindObjectOfType(typeof(GameManager));
+                //^ this is the important line.
+            }
+            return gm;
+        }
+    }
+
+
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -126,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
                 knife.transform.rotation = Quaternion.LookRotation(transform.right);
                 knife.GetComponent<Rigidbody>().AddForce(transform.forward * 3100);
                 number_of_knives = number_of_knives - 1;
+                GM.UpdateDaggerCountDecrease();
             }
         }
         if (Input.GetKeyDown(KeyCode.X))
@@ -136,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
                 rock.transform.rotation = Quaternion.LookRotation(transform.right);
                 rock.GetComponent<Rigidbody>().AddForce(transform.forward * 2100);
                 number_of_rocks = number_of_rocks - 1;
+                GM.UpdateRockCountDecrease();
             }
         }
     }

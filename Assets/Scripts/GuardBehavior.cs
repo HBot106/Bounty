@@ -8,9 +8,10 @@ public class GuardBehavior : MonoBehaviour
     public GameObject player_bounty_hunter;
     public GameObject audible_disturbance;
     public GameObject guard_eye;
-    public GameObject guard_sword_hand;
+    public GameObject guard_sword_hitbox;
     public GameObject[] guard_patrol_points;
     public NavMeshAgent guard_nav_agent;
+    private Animator guard_animator;
     public LayerMask ignorLayerMask;
     public bool guard_near_detection_cone_active;
     public bool guard_far_detection_cone_active;
@@ -29,29 +30,27 @@ public class GuardBehavior : MonoBehaviour
 
     private Vector3 point_of_interest;
 
+    private bool guard_already_died = false;
+
 
     // FIGHTING VARIABLES
     // 0 = not swinging, 1 = swinging right, 2 = swinging left, 
     // 3 = waiting to swing right, 4 = waiting to swing left
-    public int swingState;
-    public float swingSpeed;
-    public float swingDelay;
-    private float swingDelayCounter;
-    private float swingStartAngle = 250f;
-    private float swingEndAngle = 100f;
+    public float attack_delay;
+    private float last_attack_time;
 
 
 
     void Start()
     {
-        guard_state = 1;
+        guard_state = 0;
         guard_health = 3;
         guard_is_investigating = false;
         guard_can_see_player = false;
         guard_time_entered_guarding_state = Time.time;
+        last_attack_time = Time.time;
         point_of_interest = new Vector3(0f, 0f, 0f);
-
-
+        guard_animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -91,6 +90,7 @@ public class GuardBehavior : MonoBehaviour
             // STATE_PATROLLING
             case 1:
                 // WORK
+                guard_nav_agent.speed = 4.0f;
                 if (guard_is_investigating)
                 {
                     guard_nav_agent.SetDestination(point_of_interest);
@@ -118,6 +118,7 @@ public class GuardBehavior : MonoBehaviour
             // STATE_CHASING
             case 2:
                 // WORK
+                guard_nav_agent.speed = 8.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
@@ -139,6 +140,7 @@ public class GuardBehavior : MonoBehaviour
             case 3:
                 // WORK
                 swingSword();
+                guard_nav_agent.speed = 2.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
@@ -153,7 +155,19 @@ public class GuardBehavior : MonoBehaviour
 
             // STATE_DYING
             case 4:
-                gameObject.transform.parent.gameObject.SetActive(false);
+                if (!guard_already_died)
+                {
+                    guard_already_died = true;
+                    guard_animator.ResetTrigger("guardingTrigger");
+                    guard_animator.ResetTrigger("chasingTrigger");
+                    guard_animator.ResetTrigger("fightingTrigger");
+                    guard_animator.ResetTrigger("patrollingTrigger");
+                    guard_animator.ResetTrigger("attack1");
+                    guard_animator.ResetTrigger("attack2");
+                    guard_animator.ResetTrigger("attack3");
+                    guard_animator.SetTrigger("deathTrigger");
+                    StartCoroutine(deathWait());
+                }
                 break;
 
             default:
@@ -229,6 +243,10 @@ public class GuardBehavior : MonoBehaviour
     public void toPatrolling(bool need_to_investigate, Vector3 position_to_investigate)
     {
         guard_state = 1;
+        guard_animator.ResetTrigger("guardingTrigger");
+        guard_animator.ResetTrigger("chasingTrigger");
+        guard_animator.ResetTrigger("fightingTrigger");
+        guard_animator.SetTrigger("patrollingTrigger");
         point_of_interest = position_to_investigate;
         if (need_to_investigate)
         {
@@ -246,6 +264,10 @@ public class GuardBehavior : MonoBehaviour
     public void toChasing(Vector3 position_to_investigate)
     {
         guard_state = 2;
+        guard_animator.ResetTrigger("guardingTrigger");
+        guard_animator.ResetTrigger("patrollingTrigger");
+        guard_animator.ResetTrigger("fightingTrigger");
+        guard_animator.SetTrigger("chasingTrigger");
         point_of_interest = position_to_investigate;
         guard_is_investigating = true;
     }
@@ -253,6 +275,10 @@ public class GuardBehavior : MonoBehaviour
     public void toGuarding()
     {
         guard_state = 0;
+        guard_animator.ResetTrigger("chasingTrigger");
+        guard_animator.ResetTrigger("patrollingTrigger");
+        guard_animator.ResetTrigger("fightingTrigger");
+        guard_animator.SetTrigger("guardingTrigger");
         guard_time_entered_guarding_state = Time.time;
         guard_is_investigating = false;
     }
@@ -260,6 +286,10 @@ public class GuardBehavior : MonoBehaviour
     public void toFighting(Vector3 position_to_investigate)
     {
         guard_state = 3;
+        guard_animator.ResetTrigger("chasingTrigger");
+        guard_animator.ResetTrigger("patrollingTrigger");
+        guard_animator.ResetTrigger("guardingTrigger");
+        guard_animator.SetTrigger("fightingTrigger");
         point_of_interest = position_to_investigate;
         guard_is_investigating = false;
     }
@@ -267,6 +297,7 @@ public class GuardBehavior : MonoBehaviour
     public void toDeath()
     {
         guard_state = 4;
+        guard_animator.SetTrigger("deathTrigger");
         guard_is_investigating = false;
     }
     
@@ -307,36 +338,53 @@ public class GuardBehavior : MonoBehaviour
 
     private void swingSword()
     {
-        if (swingState == 1)
+        float current_time = Time.time;
+        if (current_time - last_attack_time > attack_delay)
         {
-            guard_sword_hand.transform.Rotate(Vector3.up, -swingSpeed);
-            if (guard_sword_hand.transform.localEulerAngles.y >= swingEndAngle &&
-                guard_sword_hand.transform.localEulerAngles.y <= swingStartAngle)
-            {
-                swingState = 4;
-            }
+            
+            attack();
+            last_attack_time = current_time;
         }
-        else if (swingState == 2)
+        else if (current_time - last_attack_time > (attack_delay / 2.0f))
         {
-            guard_sword_hand.transform.Rotate(Vector3.up, swingSpeed);
-            if (guard_sword_hand.transform.localEulerAngles.y <= swingStartAngle &&
-                guard_sword_hand.transform.localEulerAngles.y >= swingEndAngle)
-            {
-                swingState = 3;
-            }
+            guard_animator.ResetTrigger("attack1");
+            guard_animator.ResetTrigger("attack2");
+            guard_animator.ResetTrigger("attack3");
         }
-        else if (swingState == 3 || swingState == 4)
+    }
+
+    private void attack()
+    {
+        int swing = Random.Range(0, 3);
+        guard_sword_hitbox.SetActive(true);
+        if (swing == 1)
         {
-            swingDelayCounter++;
-            if (swingDelayCounter >= swingDelay)
-            {
-                swingState -= 2;
-                swingDelayCounter = 0;
-            }
+            guard_animator.SetTrigger("attack1");
         }
-        else
+        else if (swing == 2)
         {
-            swingState = 1;
-        } 
+            guard_animator.SetTrigger("attack2");
+        }
+        else if (swing == 3)
+        {
+            guard_animator.SetTrigger("attack3");
+        }
+        else 
+        {
+            guard_animator.SetTrigger("attack2");
+        }
+        StartCoroutine(attackWait());
+    }
+
+    IEnumerator deathWait()
+    {
+        yield return new WaitForSeconds(2f);
+        gameObject.transform.parent.gameObject.SetActive(false);
+    }
+
+    IEnumerator attackWait()
+    {
+        yield return new WaitForSeconds(1f);
+        guard_sword_hitbox.SetActive(false);
     }
 }

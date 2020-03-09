@@ -14,7 +14,7 @@ public class LevelComplete : MonoBehaviour
     public float contract_gold = 2000.0f;
     public float capture_bonus_gold = 1000.0f;
     public float capture_bonus_earned = 0;
-    public float time_bonus_gold = 0;
+    public float time_bonus_gold = 1000.0f;
     public float total_gold = 0;
 
     public GameObject bounty;

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int rockCount = 3;
     public TextMeshProUGUI daggerText;
     public TextMeshProUGUI rockText;
+    public TextMeshProUGUI SpottedText;
     public Image goldKey;
     public Image silverKey;
     public Image ironKey;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         UseKey(ironKey);
         daggerText.text = "" + daggerCount;
         rockText.text = "" + rockCount;
+        hideSpotted();
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            UpdateDaggerCountDecrease();
+            showSpotted();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -96,8 +98,23 @@ public class GameManager : MonoBehaviour
         key.color = new Color(1, 1, 1, 1.0f);
     }
 
+    public void AquireGoldKey()
+    {
+        goldKey.color = new Color(1, 1, 1, 1.0f);
+    }
+
     void UseKey(Image key)
     {
         key.color = new Color(1, 1, 1, 0.2f);
+    }
+
+    public void showSpotted()
+    {
+        SpottedText.color = new Color(1, 0, 0, 1.0f);
+    }
+
+    public void hideSpotted()
+    {
+        SpottedText.color = new Color(1, 0, 0, 0.0f);
     }
 }

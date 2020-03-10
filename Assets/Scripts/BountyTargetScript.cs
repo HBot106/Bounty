@@ -54,6 +54,13 @@ public class BountyTargetScript : MonoBehaviour
         {
             hit_points -= 1;
         }
+        
+        if ( other.gameObject.CompareTag( "Ladder" ) )
+        {
+            player.GetComponent<LevelComplete>().level_is_complete = true;
+            levelComplete.SetActive( true );
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     private void OnTriggerStay( Collider other )
@@ -78,6 +85,14 @@ public class BountyTargetScript : MonoBehaviour
         if ( other.gameObject.CompareTag( "Player" ) )
         {
             capturePopup.SetActive( false );
+        }
+    }
+
+    private void OnCollisionEnter( Collision collision )
+    {
+        if ( collision.gameObject.CompareTag( "Ladder" ) )
+        {
+            
         }
     }
 }

@@ -6,18 +6,15 @@ public class PlayerAudio : MonoBehaviour
 {
     public float walkingRadius = 5f;
 
-    private PlayerMovement pm;
-    private Rigidbody rgbd_player;
+    public PlayerMovement pm;
     private AudioSource audioSource;
     private SphereCollider s_collider;
-
     private AudioClip walking, crouching;
 
     // Start is called before the first frame update
     void Start()
     {
-        pm = GetComponentInParent<PlayerMovement>();
-        rgbd_player = GetComponentInParent<Rigidbody>();
+        // pm = GetComponentInParent<PlayerMovement>();
         audioSource = GetComponent<AudioSource>();
         s_collider = GetComponent<SphereCollider>();
 
@@ -55,7 +52,7 @@ public class PlayerAudio : MonoBehaviour
         // Player isn't moving
         else if (audioSource.isPlaying)
         {
-            audioSource.Stop();
+            // audioSource.Stop();
             s_collider.radius = 0f;
         }
     }

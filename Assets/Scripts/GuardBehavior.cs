@@ -202,7 +202,7 @@ public class GuardBehavior : MonoBehaviour
     {
         if (guard_heard_disturbance)
         {
-            toPatrolling(true, audible_disturbance.transform.position);
+            toPatrolling(true, point_of_interest);
             return true;
         }
         else
@@ -227,15 +227,31 @@ public class GuardBehavior : MonoBehaviour
     private bool targetReachedCheck()
     {
         
-        if (Vector3.Distance(transform.position, guard_patrol_points[patrol_point_index].transform.position) <= guard_nav_agent.stoppingDistance)
+        if (guard_is_investigating)
         {
-            toGuarding();
-            
-            return true;
+            if (Vector3.Distance(transform.position, point_of_interest) <= guard_nav_agent.stoppingDistance)
+            {
+                toGuarding();
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return false;
+            if (Vector3.Distance(transform.position, guard_patrol_points[patrol_point_index].transform.position) <= guard_nav_agent.stoppingDistance)
+            {
+                toGuarding();
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

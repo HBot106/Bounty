@@ -64,6 +64,7 @@ public class GuardBehavior : MonoBehaviour
         last_attack_time = Time.time;
         point_of_interest = new Vector3(0f, 0f, 0f);
         guard_animator = gameObject.GetComponent<Animator>();
+        guard_nav_agent.angularSpeed = 240;
     }
 
     void Update()
@@ -112,7 +113,7 @@ public class GuardBehavior : MonoBehaviour
             // STATE_PATROLLING
             case 1:
                 // WORK
-                guard_nav_agent.speed = 4.0f;
+                guard_nav_agent.speed = 6.0f;
                 if (guard_is_investigating)
                 {
                     guard_nav_agent.SetDestination(point_of_interest);
@@ -141,7 +142,7 @@ public class GuardBehavior : MonoBehaviour
             // STATE_CHASING
             case 2:
                 // WORK
-                guard_nav_agent.speed = 8.0f;
+                guard_nav_agent.speed = 12.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (targetReachedCheck())
@@ -167,7 +168,7 @@ public class GuardBehavior : MonoBehaviour
             case 3:
                 // WORK
                 swingSword();
-                guard_nav_agent.speed = 2.0f;
+                guard_nav_agent.speed = 4.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
@@ -189,6 +190,7 @@ public class GuardBehavior : MonoBehaviour
                 if (!guard_already_died)
                 {
                     guard_already_died = true;
+                    GM.hideSpotted();
                     guard_animator.ResetTrigger("guardingTrigger");
                     guard_animator.ResetTrigger("chasingTrigger");
                     guard_animator.ResetTrigger("fightingTrigger");

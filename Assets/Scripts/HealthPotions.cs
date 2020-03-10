@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class HealthPotions : MonoBehaviour
 {
+    public HeartsHealthVisual healthUI;
+    public PlayerMovement playerMovement;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthUI = GameObject.Find( "HeartHealthVisual" ).GetComponent<HeartsHealthVisual>();
+        playerMovement = GameObject.Find( "Player" ).GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -18,10 +22,13 @@ public class HealthPotions : MonoBehaviour
 
     private void OnTriggerEnter( Collider other )
     {
-        if ( other.gameObject.CompareTag( "Player" ) )
+        if ( other.gameObject.CompareTag( "Player" ) && playerMovement.health < 3 )
         {
-            Destroy( gameObject );
             Debug.Log( "Health pot picked up!" );
+            Destroy( gameObject );
+            
+            healthUI.Heal( 4 );
+            playerMovement.health++;
         }
     }
 }

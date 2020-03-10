@@ -64,6 +64,11 @@ public class HeartsHealthVisual : MonoBehaviour {
         heartsHealthSystem.Damage(4);
     }
 
+    public void Heal( int amount )
+    {
+        heartsHealthSystem.Heal( 4 );
+    }
+
     public void SetHeartsHealthSystem(HeartsHealthSystem heartsHealthSystem) {
         this.heartsHealthSystem = heartsHealthSystem;
         heartsHealthSystemStatic = heartsHealthSystem;

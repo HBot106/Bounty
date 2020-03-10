@@ -40,6 +40,19 @@ public class GuardBehavior : MonoBehaviour
     private float last_attack_time;
 
 
+    private GameManager gm;
+    private GameManager GM
+    {
+        get
+        {
+            if (gm == null)
+            {
+                gm = (GameManager)FindObjectOfType(typeof(GameManager));
+                //^ this is the important line.
+            }
+            return gm;
+        }
+    }
 
     void Start()
     {
@@ -66,6 +79,15 @@ public class GuardBehavior : MonoBehaviour
         }
 
         checkLineOfSight();
+
+        if (guard_can_see_player)
+        {
+            GM.showSpotted();
+        }
+        else
+        {
+            GM.hideSpotted();
+        }
 
         switch (guard_state)
         {

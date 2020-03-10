@@ -100,7 +100,12 @@ public class GuardBehavior : MonoBehaviour
                     guard_nav_agent.SetDestination(guard_patrol_points[patrol_point_index].transform.position);
                 }
                 // STATE TRANSITION
-                if (visualDetectionCheck())
+                if (targetReachedCheck())
+                // target reached
+                {
+                    break;
+                }
+                else if (visualDetectionCheck())
                 {
                     break;
                 }
@@ -108,11 +113,7 @@ public class GuardBehavior : MonoBehaviour
                 {
                     break;
                 }
-                else if (targetReachedCheck())
-                // target reached
-                {
-                    break;
-                }
+                
                 break;
 
             // STATE_CHASING
@@ -121,12 +122,16 @@ public class GuardBehavior : MonoBehaviour
                 guard_nav_agent.speed = 8.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
-                if (visualDetectionCheck())
+                if (targetReachedCheck())
+                // target reached
                 {
                     break;
                 }
-                else if (targetReachedCheck())
-                // target reached
+                else if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (audibleDetectionCheck())
                 {
                     break;
                 }
@@ -144,6 +149,10 @@ public class GuardBehavior : MonoBehaviour
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (audibleDetectionCheck())
                 {
                     break;
                 }
@@ -297,6 +306,7 @@ public class GuardBehavior : MonoBehaviour
         guard_animator.SetTrigger("guardingTrigger");
         guard_time_entered_guarding_state = Time.time;
         guard_is_investigating = false;
+        guard_heard_disturbance = false;
     }
 
     public void toFighting(Vector3 position_to_investigate)

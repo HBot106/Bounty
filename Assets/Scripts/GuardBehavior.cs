@@ -80,14 +80,14 @@ public class GuardBehavior : MonoBehaviour
 
         checkLineOfSight();
 
-        if (guard_can_see_player)
-        {
-            GM.showSpotted();
-        }
-        else
-        {
-            GM.hideSpotted();
-        }
+        // if (guard_can_see_player)
+        // {
+        //     GM.showSpotted();
+        // }
+        // else
+        // {
+        //     GM.hideSpotted();
+        // }
 
         switch (guard_state)
         {
@@ -212,14 +212,17 @@ public class GuardBehavior : MonoBehaviour
         {
             if (guard_near_detection_cone_active)
             {
+                GM.showSpotted();
                 toFighting(player_bounty_hunter.transform.position);
                 return true;
             }
             else if (guard_far_detection_cone_active)
             {
+                GM.showSpotted();
                 toChasing(player_bounty_hunter.transform.position);
                 return true;
             }
+            GM.hideSpotted();
             return false;
 
         }

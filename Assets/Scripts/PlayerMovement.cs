@@ -45,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
 
     // Projectiles
 
+    // Bounty
+    public BountyTargetScript bountyScript;
+
 
     private GameManager gm;
     private GameManager GM
@@ -72,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         healthUI = GameObject.Find("HeartHealthVisual").GetComponent<HeartsHealthVisual>();
 
         animator = GetComponentInChildren<Animator>();
+
+        bountyScript = GameObject.Find( "BountyTarget" ).GetComponent<BountyTargetScript>();
     }
 
     private void Update()
@@ -229,6 +234,10 @@ public class PlayerMovement : MonoBehaviour
                 gameOverScreen.SetActive( true );
                 //Destroy(gameObject);
             }
+        }
+        else if ( other.gameObject.CompareTag( "Ladder" ) && bountyScript.target_killed )
+        {
+            gameObject.GetComponent<LevelComplete>().level_is_complete = true;
         }
     }
 

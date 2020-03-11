@@ -9,6 +9,8 @@ public class DialogueManager : MonoBehaviour
     public AudioClip[] audioClips;
     public PlayableDirector timeline;
     public UnityEvent testing;
+    public AudioSource audioSource;
+    public GameObject ppv;
 
     private float counter_started = -1;
     private float counter_stopped = 0;
@@ -17,14 +19,14 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         timeline = GetComponent<PlayableDirector>();
+        audioSource = GetComponent<AudioSource>();
         fadeCanvas = transform.Find("FaderCanvas").gameObject;
-
     }
+
     public void togglePlayableDirector()
     {
         timeline.playableGraph.GetRootPlayable(0).SetSpeed(1);
         counter_started++;
-
     }
 
     public void stopTimeline()
@@ -48,6 +50,17 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("fading...");
         StartCoroutine(FadeToBlack());
+    }
+
+    public void toggleTBCCanvas()
+    {
+        transform.Find("TBCCanvas").GetComponent<CanvasGroup>().alpha = 1;
+        ppv.SetActive(true);
+    }
+
+    public void toBeContinued()
+    {
+        audioSource.Play();
     }
 
     IEnumerator FadeToBlack()

@@ -14,6 +14,7 @@ public class BountyTargetScript : MonoBehaviour
     private Animator targetAnimator;
     private bool capture_is_go = false;
     public bool target_is_captured = false;
+    public bool target_killed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,14 @@ public class BountyTargetScript : MonoBehaviour
             targetAnimator.SetInteger( "DeathType_int", 1 );
             capturePopup.SetActive( false );
 
-            player.GetComponent<LevelComplete>().level_is_complete = true;
+            target_killed = true;
+            //player.GetComponent<LevelComplete>().level_is_complete = true;
+            //levelComplete.SetActive( true );
+            //Cursor.lockState = CursorLockMode.None;
+        }
+
+        if ( player.GetComponent<LevelComplete>().level_is_complete )
+        {
             levelComplete.SetActive( true );
             Cursor.lockState = CursorLockMode.None;
         }

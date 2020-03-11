@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         else
             animator.SetBool("isCrouching", false);
 
-        if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
+        if (!isStabbing && Input.GetKeyDown(KeyCode.Mouse0))
         {
             isStabbing = true;
             knifeHitBox.SetActive(true);

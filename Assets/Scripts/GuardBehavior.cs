@@ -64,6 +64,7 @@ public class GuardBehavior : MonoBehaviour
         last_attack_time = Time.time;
         point_of_interest = new Vector3(0f, 0f, 0f);
         guard_animator = gameObject.GetComponent<Animator>();
+        guard_nav_agent.angularSpeed = 240;
     }
 
     void Update()
@@ -80,14 +81,14 @@ public class GuardBehavior : MonoBehaviour
 
         checkLineOfSight();
 
-        if (guard_can_see_player)
-        {
-            GM.showSpotted();
-        }
-        else
-        {
-            GM.hideSpotted();
-        }
+        // if (guard_can_see_player)
+        // {
+        //     GM.showSpotted();
+        // }
+        // else
+        // {
+        //     GM.hideSpotted();
+        // }
 
         switch (guard_state)
         {
@@ -112,7 +113,7 @@ public class GuardBehavior : MonoBehaviour
             // STATE_PATROLLING
             case 1:
                 // WORK
-                guard_nav_agent.speed = 4.0f;
+                guard_nav_agent.speed = 6.0f;
                 if (guard_is_investigating)
                 {
                     guard_nav_agent.SetDestination(point_of_interest);
@@ -122,7 +123,12 @@ public class GuardBehavior : MonoBehaviour
                     guard_nav_agent.SetDestination(guard_patrol_points[patrol_point_index].transform.position);
                 }
                 // STATE TRANSITION
-                if (visualDetectionCheck())
+                if (targetReachedCheck())
+                // target reached
+                {
+                    break;
+                }
+                else if (visualDetectionCheck())
                 {
                     break;
                 }
@@ -130,25 +136,25 @@ public class GuardBehavior : MonoBehaviour
                 {
                     break;
                 }
-                else if (targetReachedCheck())
-                // target reached
-                {
-                    break;
-                }
+                
                 break;
 
             // STATE_CHASING
             case 2:
                 // WORK
-                guard_nav_agent.speed = 8.0f;
+                guard_nav_agent.speed = 12.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
-                if (visualDetectionCheck())
+                if (targetReachedCheck())
+                // target reached
                 {
                     break;
                 }
-                else if (targetReachedCheck())
-                // target reached
+                else if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (audibleDetectionCheck())
                 {
                     break;
                 }
@@ -162,10 +168,14 @@ public class GuardBehavior : MonoBehaviour
             case 3:
                 // WORK
                 swingSword();
-                guard_nav_agent.speed = 2.0f;
+                guard_nav_agent.speed = 4.0f;
                 guard_nav_agent.SetDestination(point_of_interest);
                 // STATE TRANSITION
                 if (visualDetectionCheck())
+                {
+                    break;
+                }
+                else if (audibleDetectionCheck())
                 {
                     break;
                 }
@@ -180,6 +190,7 @@ public class GuardBehavior : MonoBehaviour
                 if (!guard_already_died)
                 {
                     guard_already_died = true;
+                    GM.hideSpotted();
                     guard_animator.ResetTrigger("guardingTrigger");
                     guard_animator.ResetTrigger("chasingTrigger");
                     guard_animator.ResetTrigger("fightingTrigger");
@@ -203,14 +214,17 @@ public class GuardBehavior : MonoBehaviour
         {
             if (guard_near_detection_cone_active)
             {
+                GM.showSpotted();
                 toFighting(player_bounty_hunter.transform.position);
                 return true;
             }
             else if (guard_far_detection_cone_active)
             {
+                GM.showSpotted();
                 toChasing(player_bounty_hunter.transform.position);
                 return true;
             }
+            GM.hideSpotted();
             return false;
 
         }
@@ -319,6 +333,7 @@ public class GuardBehavior : MonoBehaviour
         guard_animator.SetTrigger("guardingTrigger");
         guard_time_entered_guarding_state = Time.time;
         guard_is_investigating = false;
+        guard_heard_disturbance = false;
     }
 
     public void toFighting(Vector3 position_to_investigate)

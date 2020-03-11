@@ -62,13 +62,13 @@ public class CameraOrbit : MonoBehaviour
         {
             curOffset += (transform.position - target.position).normalized * -3f;
             crouch = true;
-            this._CameraDistance = 6f;
+            this._CameraDistance = 3f;
         }
         else if (crouch && !pm.isCrouching)
         {
             curOffset += (transform.position - target.position).normalized * 3f;
             crouch = false;
-            this._CameraDistance = 10f;
+            this._CameraDistance = 5f;
         }
 
 

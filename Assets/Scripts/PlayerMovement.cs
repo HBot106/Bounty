@@ -39,11 +39,13 @@ public class PlayerMovement : MonoBehaviour
     public static int number_of_knives = 2;
     public static int number_of_rocks = 3;
 
+    //Sound for player 
+    public AudioSource Player_AS;
+    public AudioClip Whoosh;
+    public AudioClip Fireball;
+
     // Animation
     private Animator animator;
-
-
-    // Projectiles
 
     // Bounty
     public BountyTargetScript bountyScript;
@@ -94,6 +96,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
         {
+            Player_AS.clip = Whoosh;
+            Player_AS.time = 0.9f;
+            Player_AS.Play();
+            Player_AS.SetScheduledEndTime(AudioSettings.dspTime + (1.4f - 0.9f));
+
             isStabbing = true;
             knifeHitBox.SetActive(true);
             animator.SetBool("isStabbing", true);
@@ -128,6 +135,11 @@ public class PlayerMovement : MonoBehaviour
         knife_and_rock_start_pos = transform.position + Vector3.up * 2 + transform.forward * 1;
         if (Input.GetKeyDown(KeyCode.C))
         {
+            Player_AS.clip = Fireball;
+            Player_AS.time = 5.0f;
+            Player_AS.Play();
+            Player_AS.SetScheduledEndTime(AudioSettings.dspTime + (6.5f - 5.0f));
+
             GameObject fireball = Instantiate(projectile_fireball, knife_and_rock_start_pos, Quaternion.identity) as GameObject;
             fireball.transform.rotation = Quaternion.LookRotation(-transform.up);
             fireball.GetComponent<Rigidbody>().AddForce(transform.forward * 2000);
@@ -148,6 +160,11 @@ public class PlayerMovement : MonoBehaviour
                 knife.GetComponent<Rigidbody>().AddForce(transform.forward * 3100);
                 number_of_knives = number_of_knives - 1;
                 GM.UpdateDaggerCountDecrease();
+
+                Player_AS.clip = Whoosh;
+                Player_AS.time = 12.0f;
+                Player_AS.Play();
+                Player_AS.SetScheduledEndTime(AudioSettings.dspTime + (12.5f - 12.0f));
             }
         }
         if (Input.GetKeyDown(KeyCode.X))
@@ -159,6 +176,11 @@ public class PlayerMovement : MonoBehaviour
                 rock.GetComponent<Rigidbody>().AddForce(transform.forward * 2100);
                 number_of_rocks = number_of_rocks - 1;
                 GM.UpdateRockCountDecrease();
+
+                Player_AS.clip = Whoosh;
+                Player_AS.time = 12.0f;
+                Player_AS.Play();
+                Player_AS.SetScheduledEndTime(AudioSettings.dspTime + (12.5f - 12.0f));
             }
         }
     }

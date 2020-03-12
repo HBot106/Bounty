@@ -17,7 +17,10 @@ public class HealthPotions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if ( playerMovement.health < 3 )
+        {
+            gameObject.SetActive( true );
+        }
     }
 
     private void OnTriggerEnter( Collider other )
@@ -26,6 +29,7 @@ public class HealthPotions : MonoBehaviour
         {
             Debug.Log( "Health pot picked up!" );
             Destroy( gameObject );
+            //gameObject.SetActive( false );
             
             healthUI.Heal( 4 );
             playerMovement.health++;

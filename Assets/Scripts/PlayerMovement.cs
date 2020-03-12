@@ -215,7 +215,6 @@ public class PlayerMovement : MonoBehaviour
             moveDir.y = 0;
             Vector3 lookDir = new Vector3(forward.x, 0, forward.z);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), rotationSpd);
-            Debug.Log(lookDir);
         }
 
         Vector2 inputMvnt = new Vector2(horizontal, vertical);
@@ -227,7 +226,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("velocity", curSpeed);
         animator.SetFloat("vertical", vertical);
         animator.SetFloat("horizontal", horizontal);
-        Debug.Log(horizontal);
     }
 
     private void moveSword()
@@ -269,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
                 //Destroy(gameObject);
             }
         }
-        else if ( other.gameObject.CompareTag( "Ladder" ) && bountyScript.target_killed || bountyScript.target_is_captured)
+        else if ( other.gameObject.CompareTag( "Ladder" ) && bountyScript.target_is_captured || bountyScript.target_killed )
         {
             gameObject.GetComponent<LevelComplete>().level_is_complete = true;
             level_complete = true;

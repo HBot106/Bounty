@@ -35,7 +35,7 @@ public class BountyTargetScript : MonoBehaviour
             target.transform.position = player.transform.position + offset_to_player;
             target.transform.rotation = player.transform.rotation;
 
-            player.GetComponent<PlayerMovement>().playerSpeed = 6.0f;
+            player.GetComponent<PlayerMovement>().playerSpeed = 8.0f;
         }
         else if ( hit_points == 0 )
         {
@@ -51,6 +51,7 @@ public class BountyTargetScript : MonoBehaviour
 
         if ( player.GetComponent<LevelComplete>().level_is_complete )
         {
+            Debug.Log("setActive");
             levelComplete.SetActive( true );
             Cursor.lockState = CursorLockMode.None;
         }
@@ -65,6 +66,8 @@ public class BountyTargetScript : MonoBehaviour
         
         if ( other.gameObject.CompareTag( "Ladder" ) )
         {
+            Debug.Log("whee");
+
             player.GetComponent<LevelComplete>().level_is_complete = true;
             levelComplete.SetActive( true );
             Cursor.lockState = CursorLockMode.None;

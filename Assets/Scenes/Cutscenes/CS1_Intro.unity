@@ -172,8 +172,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20681095}
-  m_LocalRotation: {x: 0.03132815, y: 0.96109086, z: -0.122629985, w: 0.24552976}
-  m_LocalPosition: {x: 6.2836757, y: 2.5305126, z: 13.789537}
+  m_LocalRotation: {x: -0.08150256, y: -0.6622099, z: -0.07280637, w: 0.74130607}
+  m_LocalPosition: {x: 12.449131, y: 0.5877438, z: 10.049636}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 516284773}
@@ -1602,7 +1602,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591744230}
-  m_LocalRotation: {x: 0.03517566, y: 0.96370447, z: -0.20928663, w: 0.16922748}
+  m_LocalRotation: {x: 0.03517566, y: 0.96370447, z: -0.20928663, w: 0.16197373}
   m_LocalPosition: {x: 5.4399962, y: 4.66, z: 8.950001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3897,8 +3897,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879695770}
-  m_LocalRotation: {x: 0.03685491, y: -0.7372498, z: 0.04034901, w: 0.6734066}
-  m_LocalPosition: {x: 10.418444, y: 1.8320718, z: 10.760548}
+  m_LocalRotation: {x: 0.04573013, y: 0.8043881, z: -0.062448625, w: 0.5890406}
+  m_LocalPosition: {x: -3.1036701, y: 3.400352, z: 14.08021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1879182038}
@@ -4523,7 +4523,6 @@ GameObject:
   - component: {fileID: 114937748488636952}
   - component: {fileID: 114041377086100474}
   - component: {fileID: 114877597272991364}
-  - component: {fileID: 114889499727414738}
   - component: {fileID: 114418064716463528}
   - component: {fileID: 114160787453277866}
   - component: {fileID: 114791677890281104}
@@ -5057,7 +5056,7 @@ MonoBehaviour:
   backKeyCodes: 4b010000
   backButtons:
   - Cancel
-  singleton: 1
+  singleton: 0
   onUseKeyboard:
     m_PersistentCalls:
       m_Calls: []
@@ -5070,21 +5069,6 @@ MonoBehaviour:
   onUseTouch:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &114889499727414738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003643492983132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc03036aad05c334eab057a96938959a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_saveCurrentScene: 1
-  m_framesToWaitBeforeApplyData: 4
-  m_debug: 1
 --- !u!114 &114937748488636952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5183,7 +5167,7 @@ MonoBehaviour:
   includeSimStatus: 0
   preloadResources: 1
   instantiateDatabase: 0
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   allowOnlyOneInstance: 1
   dialogueTimeMode: 0
   debugLevel: 2

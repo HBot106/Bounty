@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public int health = 3;
     private HeartsHealthVisual healthUI;
     public GameObject gameOverScreen;
+    private int deathTimer = 0;
 
     // Projectiles
     public GameObject player;
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Bounty
     public BountyTargetScript bountyScript;
+    private bool level_complete = false;
 
 
     private GameManager gm;
@@ -83,7 +85,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if ( health <= 0 )
+        if(health <= 0)
+        {
+            deathTimer++;
+            if(deathTimer > 30)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                GameObject.Find("UI").GetComponent<MainMenu>().PlayMenu();
+            }
+        }
+        if (level_complete)
         {
             return;
         }
@@ -117,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if ( health <= 0 )
+        if ( health <= 0 || level_complete)
         {
             return;
         }
@@ -254,12 +265,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Game Over!");
                 gameOverScreen.SetActive( true );
+
                 //Destroy(gameObject);
             }
         }
-        else if ( other.gameObject.CompareTag( "Ladder" ) && bountyScript.target_killed )
+        else if ( other.gameObject.CompareTag( "Ladder" ) && bountyScript.target_killed || bountyScript.target_is_captured)
         {
             gameObject.GetComponent<LevelComplete>().level_is_complete = true;
+            level_complete = true;
         }
     }
 

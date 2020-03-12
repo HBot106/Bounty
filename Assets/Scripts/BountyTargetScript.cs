@@ -35,12 +35,11 @@ public class BountyTargetScript : MonoBehaviour
             target.transform.position = player.transform.position + offset_to_player;
             target.transform.rotation = player.transform.rotation;
 
-            player.GetComponent<PlayerMovement>().playerSpeed = 3.0f;
+            player.GetComponent<PlayerMovement>().playerSpeed = 8f;
         }
-        else if ( hit_points == 0 )
+        else if ( hit_points == 0 && !target_killed)
         {
-            targetAnimator.SetBool( "Death_b", true );
-            targetAnimator.SetInteger( "DeathType_int", 1 );
+            targetAnimator.SetBool( "deathTrigger", true );
             capturePopup.SetActive( false );
 
             target_killed = true;

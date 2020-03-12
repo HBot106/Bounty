@@ -10,6 +10,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(4);
     }
 
+    public void PlayMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void PlayLevel2()
     {
         SceneManager.LoadScene( "GuardTesting" );

@@ -35,6 +35,7 @@ public class LevelComplete : MonoBehaviour
         {
             CalcTotalGold();
             DesplayPlayerGold();
+            StopAllCoroutines();
         }
     }
 

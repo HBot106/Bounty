@@ -60,4 +60,9 @@ public class LevelComplete : MonoBehaviour
     {
         SceneManager.LoadScene( "MainMenu" );
     }
+
+    public void LoadScene(int i)
+    {
+        SceneManager.LoadScene(i);
+    }
 }

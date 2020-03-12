@@ -1602,7 +1602,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591744230}
-  m_LocalRotation: {x: 0.016560838, y: 0.45371586, z: -0.09853297, w: 0.9789011}
+  m_LocalRotation: {x: 0.025072685, y: 0.68691415, z: -0.14917639, w: 0.9968008}
   m_LocalPosition: {x: 5.4399962, y: 4.66, z: 8.950001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2013,6 +2013,8 @@ MonoBehaviour:
   testing:
     m_PersistentCalls:
       m_Calls: []
+  audioSource: {fileID: 0}
+  ppv: {fileID: 0}
 --- !u!114 &863060565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,7 +2067,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
+            m_IntArgument: 3
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2520,7 +2522,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003898925}
-  m_LocalRotation: {x: 0.0023473247, y: 0.9976522, z: -0.047864128, w: 0.048926275}
+  m_LocalRotation: {x: 0.0023473252, y: 0.9976522, z: -0.04786414, w: 0.048926275}
   m_LocalPosition: {x: 7.11, y: 1.8499999, z: 12.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3924,7 +3926,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879695770}
-  m_LocalRotation: {x: 0.045730203, y: 0.80438817, z: -0.062448755, w: 0.5890404}
+  m_LocalRotation: {x: 0.0457302, y: 0.80438817, z: -0.062448755, w: 0.5890404}
   m_LocalPosition: {x: -3.1036701, y: 3.400352, z: 14.08021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7738,6 +7740,10 @@ MonoBehaviour:
     type: 3}
   projectile_fireball: {fileID: 3645355085128632534, guid: b03e667f7a02208498f927e1da7e97ea,
     type: 3}
+  Player_AS: {fileID: 0}
+  Whoosh: {fileID: 0}
+  Fireball: {fileID: 0}
+  bountyScript: {fileID: 0}
 --- !u!4 &7402050280031639779
 Transform:
   m_ObjectHideFlags: 0

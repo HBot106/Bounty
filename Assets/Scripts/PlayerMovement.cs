@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 3f, crouchSpd = 1.5f;
 
     private CharacterController controller;
-    private float curSpeed = 0f, speedSmoothVel = 0f, speedSmoothTime = 0.01f, rotationSpd = 0.05f;
+    private float curSpeed = 0f, speedSmoothVel = 0f, speedSmoothTime = 0.01f, rotationSpd = 0.15f;
     private Transform cameraTrans;
     private Rigidbody rgdbdy;
     public float guardHitForce;
@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 inputMvnt = new Vector2(horizontal, vertical);
         float speed = isCrouching ? crouchSpd : playerSpeed;
-        float targetSpd = speed * inputMvnt.magnitude;
+        float targetSpd = speed * Mathf.Clamp(inputMvnt.magnitude, -0.1f, 1f);
         curSpeed = Mathf.SmoothDamp(curSpeed, targetSpd, ref speedSmoothVel, speedSmoothTime);
         transform.position += moveDir * Time.deltaTime * curSpeed;
 

@@ -27,9 +27,7 @@ public class HealthPotions : MonoBehaviour
     {
         if ( other.gameObject.CompareTag( "Player" ) && playerMovement.health < 3 )
         {
-            Debug.Log( "Health pot picked up!" );
             Destroy( gameObject );
-            //gameObject.SetActive( false );
             
             healthUI.Heal( 4 );
             playerMovement.health++;

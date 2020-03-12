@@ -16,10 +16,12 @@ public class DoorManager : MonoBehaviour
     public bool door_is_locked = true;
     public bool unlock_current_door = false;
 
+    private GameManager gm;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        gm = ( GameManager ) FindObjectOfType( typeof( GameManager ) );
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class DoorManager : MonoBehaviour
     private void OpenDoor()
     {
         Destroy( thisDoor.gameObject );
+        gm.UseKey( gm.goldKey );
     }
 
     IEnumerator WaitForUIRoutine()

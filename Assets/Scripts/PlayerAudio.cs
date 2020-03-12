@@ -32,11 +32,11 @@ public class PlayerAudio : MonoBehaviour
         //If player is moving
         if (pm.getCurSpeed() > 0.02f)
         {
-            Debug.Log("heeeee");
             // If player is crouching
             if (audioSource.clip == walking && pm.isCrouching)
             {
                 audioSource.clip = crouching;
+                audioSource.volume = 0.2f;
                 s_collider.radius = 0;
                 audioSource.Play();
             }
@@ -44,6 +44,7 @@ public class PlayerAudio : MonoBehaviour
             else if (audioSource.clip == crouching && !pm.isCrouching || !audioSource.isPlaying)
             {
                 audioSource.Stop();
+                audioSource.volume = 0.4f;
                 audioSource.clip = walking;
                 audioSource.Play();
                 s_collider.radius = walkingRadius;
@@ -52,7 +53,7 @@ public class PlayerAudio : MonoBehaviour
         // Player isn't moving
         else if (audioSource.isPlaying)
         {
-            // audioSource.Stop();
+            audioSource.Stop();
             s_collider.radius = 0f;
         }
     }

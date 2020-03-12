@@ -230,6 +230,7 @@ public class GuardBehavior : MonoBehaviour
         }
         else
         {
+            GM.hideSpotted();
             return false;
         }
     }

@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         else
             animator.SetBool("isCrouching", false);
 
-        if (!isStabbing && Input.GetKeyDown(KeyCode.Q))
+        if (!isStabbing && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Player_AS.clip = Whoosh;
             Player_AS.time = 0.9f;

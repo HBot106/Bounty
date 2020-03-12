@@ -30,38 +30,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            showSpotted();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            UpdateRockCountDecrease();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            UpdateDaggerCountIncrease();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            UpdateRockCountIncrease();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            UseKey(goldKey);
-            UseKey(silverKey);
-            UseKey(ironKey);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            AquireKey(goldKey);
-            AquireKey(silverKey);
-            AquireKey(ironKey);
-        }
+       
     }
 
     //decrease the amount of daggers

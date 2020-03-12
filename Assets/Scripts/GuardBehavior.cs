@@ -230,7 +230,6 @@ public class GuardBehavior : MonoBehaviour
         }
         else
         {
-            GM.hideSpotted();
             return false;
         }
     }
@@ -310,6 +309,7 @@ public class GuardBehavior : MonoBehaviour
         {
             guard_is_investigating = false;
             patrol_point_index = ((patrol_point_index + 1) % guard_patrol_points.Length);
+            GM.hideSpotted();
             return;
         }
     }
@@ -335,6 +335,7 @@ public class GuardBehavior : MonoBehaviour
         guard_time_entered_guarding_state = Time.time;
         guard_is_investigating = false;
         guard_heard_disturbance = false;
+        GM.hideSpotted();
     }
 
     public void toFighting(Vector3 position_to_investigate)

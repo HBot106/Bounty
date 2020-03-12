@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         goldKey.color = new Color(1, 1, 1, 1.0f);
     }
 
-    void UseKey(Image key)
+    public void UseKey(Image key)
     {
         key.color = new Color(1, 1, 1, 0.2f);
     }

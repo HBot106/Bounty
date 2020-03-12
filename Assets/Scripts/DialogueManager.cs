@@ -58,6 +58,11 @@ public class DialogueManager : MonoBehaviour
         ppv.SetActive(true);
     }
 
+    public void turnOffMainMusic()
+    {
+        transform.Find("AudioSource").gameObject.SetActive(false);
+    }
+
     public void toBeContinued()
     {
         audioSource.Play();

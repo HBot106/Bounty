@@ -22,13 +22,15 @@ public class ItemAudio : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+ 
         audioSource.Stop();
         audioSource.volume = rgbd.velocity.magnitude;
         audioSource.Play();
 
         float radius = rgbd.velocity.magnitude * 5f;
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
-        foreach (Collider collider in hitColliders) {
+        foreach (Collider collider in hitColliders)
+        {
             if (collider.gameObject.CompareTag("Guard"))
             {
                 collider.gameObject.GetComponentInParent<GuardBehavior>().setGuardActive();
@@ -36,5 +38,6 @@ public class ItemAudio : MonoBehaviour
                 Debug.Log("Gaurd");
             }
         }
+        
     }
 }

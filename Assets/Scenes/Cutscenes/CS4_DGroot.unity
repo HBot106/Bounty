@@ -13018,7 +13018,7 @@ MonoBehaviour:
       showNPCSubtitlesWithResponses: 1
       showPCSubtitlesDuringLine: 1
       allowPCSubtitleReminders: 1
-      skipPCSubtitleAfterResponseMenu: 0
+      skipPCSubtitleAfterResponseMenu: 1
       subtitleCharsPerSecond: 30
       minSubtitleSeconds: 2
       continueButton: 1

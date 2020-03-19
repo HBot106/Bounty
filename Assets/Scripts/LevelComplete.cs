@@ -64,6 +64,26 @@ public class LevelComplete : MonoBehaviour
 
     public void LoadScene(int i)
     {
-        SceneManager.LoadScene(i);
+        // Tutorial
+        if (i == 5)
+        {
+            if (bounty.GetComponent<BountyTargetScript>().target_is_captured)
+                SceneManager.LoadScene(i);
+            else
+                SceneManager.LoadScene(8);
+        }
+        // Level 2
+        else if (i == 6)
+        {
+            if (bounty.GetComponent<BountyTargetScript>().target_is_captured)
+                SceneManager.LoadScene(i);
+            else
+                SceneManager.LoadScene(10);
+        }
+        else
+        {
+            LoadScene(i);
+        }
+
     }
 }

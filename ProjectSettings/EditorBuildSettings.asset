@@ -29,4 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cutscenes/CS5_KingWorst.unity
     guid: 196758bc3210df3489fcd4eb86d576c5
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/CS3_Burns.unity
+    guid: e8d5e219759ee9b4085c53427274ed00
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/CS6_KingBad.unity
+    guid: 2fb6a0b1d30a01f41851d9780a1280e4
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/CS7_KingBad.unity
+    guid: c1cdd3a576b00f74ca3c0ab56fedffc0
   m_configObjects: {}
